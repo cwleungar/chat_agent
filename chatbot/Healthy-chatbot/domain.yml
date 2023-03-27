@@ -1,0 +1,85 @@
+version: '3.1'
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- where_i_live
+- greet
+- inquire_time_difference
+- inquire_time
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- inquire_food_nutrition
+- asking_should_i_eat
+- tell_name
+- give_name
+- repeat_name
+
+
+# simple entity definitions 
+entities:
+- place
+- name
+- first_name_entity
+- last_name_entity
+
+
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_name:
+  - text: What is your name?
+  utter_thankyou:
+  - text: "ok, thank you!"
+  utter_user_name:
+  - text: "I will remember your name is {first_name} {last_name} !"
+
+actions:
+- action_receive_name
+- action_say_name
+- action_remember_where
+- action_tell_time
+- action_time_difference
+- utter_greet
+- action_receive_lastname
+- action_receive_firstname
+
+## forms definitions
+# form will be triggered by rule -> see rules.yml
+forms:
+  # form for filling user's name 
+  name_form:
+    required_slots:     # refer to the slots below
+    - first_name
+    - last_name   
+
+
+slots:
+  first_name:
+    type: text
+    mappings:                   # This will explicitly map the entity "first_name_entity" to the slot "first_name" when the relevant entity is detected in the text.
+    - type: from_entity         # custom means from slot can be filled by action
+      entity: first_name_entity 
+
+  last_name:
+    type: text  
+    mappings:
+    - type: from_entity
+      entity: last_name_entity

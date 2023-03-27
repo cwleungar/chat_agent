@@ -1,0 +1,162 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - hi there
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: | 
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human
+
+
+# Healthly wellbeing - Food Nutrition part
+# User want to inquire nutrition information of a food
+- intent: inquire_food_nutrition
+  examples: |
+    - How many calories are in [apple](target_food)
+    - what is the nutritional value of [apple](target_food)?
+    - How healthy is this [apple](target_food)?
+    - List the nutrition facts of [apple](target_food)
+    - Is it healthy
+    - How much sugar is in [apple](target_food)
+    - Can you tell me the protein content of [apple](target_food)
+
+# User asking whether he should eat this food
+- intent: asking_should_i_eat
+  examples: |
+    - Is it healthy to eat [apple](target_food)
+    - Should I eat this [apple](target_food)
+    - Can I eat the [apple](target_food) 
+    - Is it okay to eat the [apple](target_food) 
+    - Should I avoid eating [apple](target_food)?
+
+# User want to tell his/her name
+- intent: tell_name
+  examples: |
+    - let me give you my name
+    - I want to tell you my name
+    - I will let you know my name
+    - do you want to know my name?
+
+# User giving his/her name to rasa
+# note that entity type is marked with (), and entity value example is given in [] for training
+- intent: give_name
+  examples: |
+    - my name is [kai](first_name_entity)       
+    - [vincent](first_name_entity) 
+    - [rachael](first_name_entity) 
+    - [york](first_name_entity) 
+    - [emma](first_name_entity) 
+    - [jenny](first_name_entity) 
+    - [steven](first_name_entity) 
+    - [frankie](first_name_entity) 
+    - [sam](first_name_entity) 
+    - [tommy](first_name_entity) 
+    - [sharon](first_name_entity) 
+    - [gary](first_name_entity) 
+    - [blake](first_name_entity) 
+    - [kai](first_name_entity) 
+    - My last name is [Lam](last_name_entity)
+    - My surname is [Lam](last_name_entity)
+
+# user ask the chatbot to sayout his/her name
+- intent: repeat_name
+  examples: |
+    - say my name
+    - repeat my name please
+    - what is my name?
+
+
+# lookup table -> train to generate case-sensitive regex patterns 
+- lookup: first_name_entity
+  examples: |
+    - kai
+    - jenny
+    - frankie
+    - frank
+    - gary
+    - sam
+    - york
+    - blake
+    - sharon
+    - steven
+    - tommy
+    - vincent
+    - andy
+    - henry
