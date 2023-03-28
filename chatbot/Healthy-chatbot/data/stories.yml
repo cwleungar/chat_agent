@@ -2,42 +2,11 @@ version: "3.1"
 
 stories:
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-  - intent: inquire_time
-  - action: action_tell_time
-  - intent: where_i_live
-  - action: action_remember_where
-  - intent: inquire_time_difference
-  - action: action_time_difference
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
-
 # Healthly wellbeing 
 - story: inquiring bmi
   steps:
   - intent: inquire_bmi
+  - action: action_calculate_bmi
   - action: action_say_bmi
+
+

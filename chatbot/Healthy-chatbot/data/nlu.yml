@@ -84,27 +84,38 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human
 
+- intent: hello_world
+  examples: |
+    - print hello world
+    - say hello world
+    - hello world
+    - hello world!
 
 # Healthly wellbeing - Food Nutrition part
 # User want to inquire nutrition information of a food
+
 - intent: inquire_food_nutrition
   examples: |
-    - How many calories are in [apple](target_food)
-    - what is the nutritional value of [apple](target_food)?
-    - How healthy is this [apple](target_food)?
-    - List the nutrition facts of [apple](target_food)
-    - Is it healthy
-    - How much sugar is in [apple](target_food)
-    - Can you tell me the protein content of [apple](target_food)
+    - i had a [cheeseburger](food)
+    - what is the nutrition value of a [chicken sandwich](food)?
+    - how healthy is [instant noodle](food)?
+    - i ate some [hawaiian pizza](food)
+    - nutrtion value of [dumplings](food)
+    - How many calories are in [apple](food)
+    - what is the nutritional value of [apple](food)?
+    - How healthy is this [apple](food)?
+    - List the nutrition facts of [apple](food)
+    - How much sugar is in [apple](food)
+    - Can you tell me the content of [apple](food)
 
 # User asking whether he should eat this food
 - intent: asking_should_i_eat
   examples: |
-    - Is it healthy to eat [apple](target_food)
-    - Should I eat this [apple](target_food)
-    - Can I eat the [apple](target_food) 
-    - Is it okay to eat the [apple](target_food) 
-    - Should I avoid eating [apple](target_food)?
+    - Is it healthy to eat [apple](food)
+    - Should I eat this [apple](food)
+    - Can I eat the [apple](food) 
+    - Is it okay to eat the [apple](food) 
+    - Should I avoid eating [apple](food)?
 
 - intent: asking_should_i_exercise
   examples: |
@@ -181,11 +192,8 @@ nlu:
     - my age is [19](age)
     - I am [19](age)
     - I am [20](age) years old
+    - I am now [21](age) years old
 
-# regex pattern for training data to better extract the age entity
-- regex: age
-  examples: |
-    - \d{1, 2, 3}
 
 # User telling his/her weight to rasa
 - intent: give_weight
@@ -197,25 +205,21 @@ nlu:
     - I am [55](weight)
     - I weigh [78](weight).
   
-# regex pattern for training data to better extract the age entity
-- regex: weight
-  examples: |
-    - ((\d{2,3})|(\d{2,3}.\d+))kg
 
 # User telling his/her height to rasa
 - intent: give_height
   examples: |
-    - my height is [1.69](height)m
-    - I am [1.7](height)m
-    - I am [1.85](height)m tall.
-    - my height is [1.69](height)
-    - I am [1.7](height)
-    - I am [1.85](height) tall.
+    - my height is [169](height)cm
+    - I am [170](height)cm
+    - I am [185](height)cm tall.
+    - my height is [169](height)
+    - I am [179](height)
+    - I am [158](height) tall.
 
 # regex pattern for training data to better extract the age entity
 - regex: height
   examples: |
-    - ^1.\d+
+    - ^[1-2]\d{2}
 
 - intent: inquire_bmi
   examples: |
@@ -223,3 +227,1019 @@ nlu:
     - i want to now my bmi value
     - am i healthy enough now ?
     
+
+# long loopup table for weight in kg
+- lookup: weight
+  examples: |
+    - 25
+    - 26
+    - 27
+    - 28
+    - 29
+    - 30
+    - 31
+    - 32
+    - 33
+    - 34
+    - 35
+    - 36
+    - 37
+    - 38
+    - 39
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    - 45
+    - 46
+    - 47
+    - 48
+    - 49
+    - 50
+    - 51
+    - 52
+    - 53
+    - 54
+    - 55
+    - 56
+    - 57
+    - 58
+    - 59
+    - 60
+    - 61
+    - 62
+    - 63
+    - 64
+    - 65
+    - 66
+    - 67
+    - 68
+    - 69
+    - 70
+    - 71
+    - 72
+    - 73
+    - 74
+    - 75
+    - 76
+    - 77
+    - 78
+    - 79
+    - 80
+    - 81
+    - 82
+    - 83
+    - 84
+    - 85
+    - 86
+    - 87
+    - 88
+    - 89
+    - 90
+    - 91
+    - 92
+    - 93
+    - 94
+    - 95
+    - 96
+    - 97
+    - 98
+    - 99
+    - 100
+    - 101
+    - 102
+    - 103
+    - 104
+    - 105
+    - 106
+    - 107
+    - 108
+    - 109
+    - 110
+    - 111
+    - 112
+    - 113
+    - 114
+    - 115
+    - 116
+    - 117
+    - 118
+    - 119
+    - 120
+    - 121
+    - 122
+    - 123
+    - 124
+    - 125
+    - 126
+    - 127
+    - 128
+    - 129
+    - 130
+    - 131
+    - 132
+    - 133
+    - 134
+    - 135
+    - 136
+    - 137
+    - 138
+    - 139
+    - 140
+    - 141
+    - 142
+    - 143
+    - 144
+    - 145
+    - 146
+    - 147
+    - 148
+    - 149
+    - 150
+    - 151
+    - 152
+    - 153
+    - 154
+    - 155
+    - 156
+    - 157
+    - 158
+    - 159
+    - 160
+    - 161
+    - 162
+    - 163
+    - 164
+    - 165
+    - 166
+    - 167
+    - 168
+    - 169
+    - 170
+    - 171
+    - 172
+    - 173
+    - 174
+    - 175
+    - 176
+    - 177
+    - 178
+    - 179
+    - 180
+    - 181
+    - 182
+    - 183
+    - 184
+    - 185
+    - 186
+    - 187
+    - 188
+    - 189
+    - 190
+    - 191
+    - 192
+    - 193
+    - 194
+    - 195
+    - 196
+    - 197
+    - 198
+    - 199
+
+
+# long lookup table for food entity
+- lookup: food
+  examples: |
+    - Abalone
+    - Almond biscuit
+    - Almond milk
+    - American breakfast
+    - Apple pie
+    - Apricot
+    - Arrowhead
+    - Asparagus
+    - Avocado
+    - Baby back ribs
+    - Bacon
+    - Bagel
+    - Baked beans
+    - Baked potato
+    - Bak Kut Teh
+    - Banana
+    - Barbecue pork
+    - Barramundi
+    - Basil chicken
+    - Beef brisket
+    - Beef burger
+    - Beef chow fun
+    - Beef curry
+    - Beef noodle soup
+    - Beef rendang
+    - Beef satay
+    - Beef stew
+    - Beer
+    - Beijing duck
+    - Bitter melon
+    - Black bean sauce
+    - Black pepper beef
+    - Black sesame soup
+    - Bok choy
+    - Braised beef
+    - Braised duck
+    - Braised pork belly
+    - Bread pudding
+    - Breakfast sandwich
+    - Broccoli
+    - Brownie
+    - Bubble tea
+    - Buffalo wings
+    - Burger
+    - Burrito
+    - Butter chicken
+    - Cabbage
+    - Caesar salad
+    - Calamari
+    - California roll
+    - Camembert cheese
+    - Candy apple
+    - Caramel custard
+    - Carbonara
+    - Carrot cake
+    - Cashew chicken
+    - Catfish
+    - Caviar
+    - Cereal
+    - Chai latte
+    - Chantilly cream
+    - Char siu
+    - Cheeseburger
+    - Cheesecake
+    - Chef salad
+    - Chicken alfredo
+    - Chicken burger
+    - Chicken chow mein
+    - Chicken curry
+    - Chicken fried rice
+    - Chicken katsu
+    - Chicken noodle soup
+    - Chicken parmigiana
+    - Chicken rice
+    - Chicken satay
+    - Chicken tikka masala
+    - Chicken wings
+    - Chilean sea bass
+    - Chili con carne
+    - Chili crab
+    - Chocolate cake
+    - Chocolate chip cookie
+    - Chowder
+    - Clam chowder
+    - Clams
+    - Club sandwich
+    - Cobb salad
+    - Coconut milk
+    - Coffee
+    - Congee
+    - Cookie dough
+    - Corn on the cob
+    - Crab cake
+    - Cranberry sauce
+    - Cream of mushroom soup
+    - Cream puff
+    - Creamed spinach
+    - Crepe
+    - Croissant
+    - Cucumber
+    - Curry fish ball
+    - Custard tart
+    - Daikon cake
+    - Deep-fried shrimp
+    - Dim sum
+    - Dosa
+    - Dragon fruit
+    - Dumplings
+    - Eclair
+    - Egg drop soup
+    - Egg fried rice
+    - Egg tart
+    - Eggplant parmigiana
+    - Escargot
+    - Falafel
+    - Fish and chips
+    - Fish ball noodles
+    - Fish cake
+    - Fish curry
+    - Fish fillet
+    - Fish head curry
+    - Fish maw soup
+    - Fish soup
+    - Flan
+    - Flatbread
+    - Foie gras
+    - French fries
+    - French onion soup
+    - Fried chicken
+    - Fried rice
+    - Fried tofu
+    - Fried wonton
+    - Frittata
+    - Fruit salad
+    - Garlic bread
+    - Garlic chicken
+    - General Tso's chicken
+    - Ginger milk curd
+    - Ginger pork
+    - Goulash
+    - Grilled cheese sandwich
+    - Grilled fish
+    - Grilled lamb chops
+    - Grilled steak
+    - Grilled vegetables
+    - Guava
+    - Gumbo
+    - Gyro
+    - Hainanese chicken rice
+    - Ham and cheese sandwich
+    - Hamburger steak
+    - Har gow
+    - Hash browns
+    - Hawaiian pizza
+    - Hazelnut cake
+    - Herb roasted chicken
+    - Honey baked ham
+    - Honey chicken
+    - Honey walnut shrimp
+    - Hot and sour soup
+    - Hot dog
+    - Hot pot
+    - Hummus
+    - Ice cream
+    - Indonesian fried rice
+    - Irish stew
+    - Italian sausage
+    - Jalapeno popper
+    - Japanese curry
+    - Jello
+    - Jellyfish salad
+    - Jerk chicken
+    - Kaya toast
+    - Kimchi
+    - King crab
+    - Kung pao chicken
+    - Lamb chops
+    - Lasagna
+    - Lemon chicken
+    - Lemon meringue pie
+    - Lobster
+    - Lobster bisque
+    - Lomo saltado
+    - Lo mein
+    - Mac and cheese
+    - Macaroni salad
+    - Mango pudding
+    - Manhattan clam chowder
+    - Margherita pizza
+    - Matzo ball soup
+    - Meatball sub
+    - Meatloaf
+    - Mee goreng
+    - Miso soup
+    - Mixed vegetable curry
+    - Mozzarella sticks
+    - Mushroom risotto
+    - Nachos
+    - Nasi goreng
+    - Nasi lemak
+    - New England clam chowder
+    - Oatmeal raisin cookie
+    - Octopus
+    - Omelette
+    - Onion rings
+    - Orange chicken
+    - Oreo cheesecake
+    - Oyster omelette
+    - Oyster sauce
+    - Pad
+    - Pad Thai
+    - Paella
+    - Pancakes
+    - Panna Cotta
+    - Papaya Salad
+    - Parmesan Chicken
+    - Pasta Carbonara
+    - Peking Duck
+    - Penne Arrabiata
+    - Philly Cheesesteak
+    - Pho
+    - Pico de Gallo
+    - Pineapple Fried Rice
+    - Pizza Margherita
+    - Poached Eggs
+    - Popcorn Chicken
+    - Pork Adobo
+    - Pork Buns
+    - Pork Chop
+    - Pork Dumplings
+    - Pork Ribs
+    - Pork Tofu
+    - Potato Salad
+    - Prawn Mee
+    - Pretzel
+    - Prime Rib
+    - Pulled Pork
+    - Pumpkin Pie
+    - Quiche
+    - Ramen
+    - Ratatouille
+    - Red Bean Soup
+    - Red Curry
+    - Reuben Sandwich
+    - Ribs
+    - Risotto
+    - Roast Beef
+    - Roast Chicken
+    - Roast Pork
+    - Roast Turkey
+    - S'mores
+    - Saffron Rice
+    - Salmon
+    - Salsa
+    - Samosas
+    - Sashimi
+    - Scallop
+    - Scrambled Eggs
+    - Seafood Paella
+    - Shrimp Alfredo
+    - Shrimp Cocktail
+    - Shrimp Scampi
+    - Shrimp Stir Fry
+    - Skewers
+    - Sloppy Joe
+    - Smoked Salmon
+    - Smoothie
+    - Snapper
+    - Sorbet
+    - Souffle
+    - Spaghetti Bolognese
+    - Spanish Omelette
+    - Spring Rolls
+    - Squash Soup
+    - Steak
+    - Steak Fajitas
+    - Steak Tartare
+    - Steamed Clams
+    - Steamed Rice
+    - Sticky Rice
+    - Stir Fry Vegetables
+    - Strawberry Shortcake
+    - Stuffed Peppers
+    - Sushi
+    - Sweet and Sour Chicken
+    - Sweet and Sour Pork
+    - Tacos
+    - Takoyaki
+    - Tandoori Chicken
+    - Tapioca Pudding
+    - Teriyaki Chicken
+    - Thai Green Curry
+    - Thai Red Curry
+    - Tiramisu
+    - Tomato Soup
+    - Tostadas
+    - Truffle Fries
+    - Tuna Salad
+    - Turkey Club Sandwich
+    - Udon Noodles
+    - Vegetable Curry
+    - Vegetable Fried Rice
+    - Vegetable Lasagna
+    - Vegetable Soup
+    - Veggie Burger
+    - Vietnamese Coffee
+    - Waffles
+    - Waldorf Salad
+    - Walnut Cake
+    - Wonton Soup
+    - Yakitori
+    - Yellow Curry
+    - Yogurt Parfait
+    - Zucchini Bread
+    - Acai bowl
+    - Adobo
+    - Aglio e olio
+    - Al pastor
+    - Alfredo pasta
+    - Aloo gobi
+    - Amatriciana
+    - Anchovy pizza
+    - Anpan
+    - Antipasto
+    - Apple turnover
+    - Arancini
+    - Arepa
+    - Artichoke dip
+    - Asam laksa
+    - Aspic
+    - Baguette
+    - Baklava
+    - Banana bread
+    - Barbecue chicken
+    - Basil pesto
+    - Batata vada
+    - Beef bourguignon
+    - Beef noodle soup
+    - Beef stroganoff
+    - Beet salad
+    - Belacan
+    - Bibimbap
+    - Biryani
+    - Biscotti
+    - Black forest cake
+    - Black garlic
+    - Blackened fish
+    - Blini
+    - Blueberry muffin
+    - Boeuf bourguignon
+    - Borscht
+    - Bouillabaisse
+    - Bourekas
+    - Braai
+    - Branzino
+    - Brie cheese
+    - Broccoli cheddar soup
+    - Broiled fish
+    - Bruschetta
+    - Bubble and squeak
+    - Buckwheat pancake
+    - Buffalo chicken wings
+    - Bulgogi
+    - Burmese tea leaf salad
+    - Butter chicken curry
+    - Butternut squash soup
+    - Caesar salad wrap
+    - Caldo verde
+    - California roll sushi
+    - Camarones al ajillo
+    - Camembert cheese
+    - Cannoli
+    - Caponata
+    - Caramel apple
+    - Caramel popcorn
+    - Carbonnade
+    - Carne asada
+    - Carrot cake
+    - Cassoulet
+    - Cataplana
+    - Caviar
+    - Ceviche
+    - Chakalaka
+    - Challah bread
+    - Chana masala
+    - Charcuterie board
+    - Chashu ramen
+    - Cheese fondue
+    - Cheese ravioli
+    - Cheese souffle
+    - Cheese steak sandwich
+    - Cheesy potatoes
+    - Cherry pie
+    - Chicken alfredo pasta
+    - Chicken and dumplings
+    - Chicken and waffles
+    - Chicken biryani
+    - Chicken breast
+    - Chicken cacciatore
+    - Chicken enchiladas
+    - Chicken karaage
+    - Chicken kebab
+    - Chicken Kiev
+    - Chicken marsala
+    - Chicken Parmesan
+    - Chicken pot pie
+    - Chicken shawarma
+    - Chicken teriyaki
+    - Chickpea curry
+    - Chili cheese fries
+    - Chili con carne
+    - Chimichanga
+    - Chocolate brownie
+    - Chocolate chip pancakes
+    - Chocolate mousse
+    - Chorizo
+    - Churro
+    - Clafoutis
+    - Clam chowder
+    - Cobbler
+    - Coconut shrimp
+    - Coq au vin
+    - Corn chowder
+    - Cornish pasty
+    - Cottage pie
+    - Crab cakes
+    - Crab legs
+    - Crawfish boil
+    - Cream cheese frosting
+    - Creamed corn
+    - Creole gumbo
+    - Croque-monsieur
+    - Crudités
+    - Cuban sandwich
+    - Cucumber salad
+    - Curry mee
+    - Dahi puri
+    - Dal makhani
+    - Dan dan noodles
+    - Danish pastry
+    - Dark chocolate
+    - Deep dish pizza
+    - Deviled eggs
+    - Dhokla
+    - Dim sum
+    - Dolma
+    - Doner kebab
+    - Double cheeseburger
+    - Duck breast
+    - Duck confit
+    - Dumplings
+    - Dutch baby pancake
+    - Edamame
+    - Egg drop soup
+    - Eggplant parmesan
+    - Eggs Benedict
+    - Empanada
+    - Enchilada
+    - Escalope
+    - Falafel wrap
+    - Farro salad
+    - Fatayer
+    - Fettuccine Alfredo
+    - Filet mignon
+    - Fish curry
+    - Fish tacos
+    - Flauta
+    - Flounder
+    - Foie gras
+    - Fondant potatoes
+    - French onion soup
+    - Fried chicken sandwich
+    - Fried fish
+    - Fried green tomatoes
+    - Fried okra
+    - Fried rice
+    - Fried tofu
+    - Frittata
+    - Fudge
+    - Gambas al ajillo
+    - Garam masala
+    - Gazpacho
+    - General Tso's chicken
+    - German chocolate cake
+    - Gimbap
+    - Gnocchi
+    - Goulash
+    - Greek salad
+    - Green bean casserole
+    - Green curry
+    - Grilled cheese sandwich
+    - Grilled fish tacos
+    - Grilled octopus
+    - Grilled salmon
+    - Grilled shrimp
+    - Grilled vegetables
+    - Guacamole
+    - Guava juice
+    - Gumbo
+    - Gyudon
+    - Halibut
+    - Ham and cheese croissant
+    - Ham and eggs
+    - Hamburger
+    - Harissa
+    - Hash browns
+    - Hawaiian poke bowl
+    - Hawaiian sweet bread
+    - Hazelnut spread
+    - Herring
+    - Hoagie
+    - Hokkien mee
+    - Honey glazed ham
+    - Honey mustard chicken
+    - Honeycomb toffee
+    - Hot and spicy chicken
+    - Hot chocolate
+    - Hot cross buns
+    - Hot dog
+    - Huevos rancheros
+    - Hummus wrap
+    - Hungarian goulash
+    - Ice cream sundae
+    - Iced coffee
+    - Idli
+    - Inarizushi
+    - Indian butter chicken
+    - Indonesian fried noodles
+    - Italian wedding soup
+    - Jalebi
+    - Jamaican jerk chicken
+    - Japanese cheesecake
+    - Jiaozi
+    - Jjamppong
+    - Jjigae
+    - Kabsa
+    - Kachori
+    - Katsu
+    - Kebab
+    - Key lime pie
+    - Khachapuri
+    - Khao pad
+    - Kheer
+    - Kibbeh
+    - Kimchi fried rice
+    - King oyster mushroom
+    - Kippers
+    - Kofta
+    - Kogi BBQ
+    - Kolache
+    - Korean barbecue
+    - Koulouri
+    - Kung pao shrimp
+    - Kunafa
+    - Kwetiaw
+    - Lagsana
+    - Lamb burger
+    - Lamb chops
+    - Lamb kebab
+    - Lamb tagine
+    - Lassi
+    - Lasagna
+    - Latte
+    - Lebanese hummus
+    - Lemon bars
+    - Lemon chicken
+    - Lemon tart
+    - Lemonade
+    - Lengua
+    - Loco moco
+    - Lobster roll
+    - Longanisa
+    - Loquat
+    - Lotus root
+    - Louisiana gumbo
+    - Macaron
+    - Macaroni and cheese
+    - Madras curry
+    - Maguro
+    - Mahi-mahi
+    - Maki roll
+    - Malai kofta
+    - Mango chutney
+    - Mango lassi
+    - Maple glazed bacon
+    - Maple syrup
+    - Marinated olives
+    - Masala chai
+    - Matzo ball soup
+    - Meat pie
+    - Meatloaf sandwich
+    - Mediterranean salad
+    - Menudo
+    - Merguez sausage
+    - Mexican rice
+    - Mie goreng
+    - Milkshake
+    - Miso glazed salmon
+    - Mixed berry pie
+    - Mozzarella cheese sticks
+    - Mulligatawny soup
+    - Mung bean sprouts
+    - Mushroom quiche
+    - Mushroom soup
+    - Musubi
+    - Naan bread
+    - Nacho cheese
+    - Nachos supreme
+    - Nasi Campur
+    - Nasi goreng
+    - Navajo taco
+    - Nebraska bierock
+    - Neapolitan pizza
+    - New Orleans po' boy
+    - Nikujaga
+    - Nopales
+    - Nutella crepe
+    - Oatmeal cookies
+    - Oden
+    - Omelette sandwich
+    - Onion bhaji
+    - Onion soup
+    - Orange chicken
+    - Orange marmalade
+    - Osso buco
+    - Oysters Rockefeller
+    - Pad kee mao
+    - Pad see ew
+    - Padangnese chicken
+    - Paella Valenciana
+    - Pakora
+    - Palak paneer
+    - Pancake stack
+    - Panini sandwich
+    - Papaya smoothie
+    - Pappardelle pasta
+    - Parathas
+    - Pate
+    - Peking duck wrap
+    - Pemmican
+    - Pesto pasta
+    - Philly cheese steak sandwich
+    - Pho ga
+    - Picadillo
+    - Piccata
+    - Pickled beets
+    - Pickled eggs
+    - Pico de gallo
+    - Pide
+    - Pierogi
+    - Pigs in a blanket
+    - Pineapple juice
+    - Pineapple upside-down cake
+    - Pistachio ice cream
+    - Pizza bianca
+    - Pizza calzone
+    - Pizza marinara
+    - Pizza quattro formaggi
+    - Pizza Rustica
+    - Po boy sandwich
+    - Polenta
+    - Pommes frites
+    - Ponzu sauce
+    - Popcorn shrimp
+    - Porchetta
+    - Pork belly sandwich
+    - Pork carnitas
+    - Pork chow mein
+    - Pork chops and applesauce
+    - Pork cracklings
+    - Pork green chili
+    - Pork katsu curry
+    - Pork sisig
+    - Pork tenderloin
+    - Portuguese custard tart
+    - Potato gratin
+    - Potato latkes
+    - Potato pancakes
+    - Potato soup
+    - Poutine
+    - Pozole
+    - Pretzel bun
+    - Prosciutto
+    - Protein shake
+    - Pudding
+    - Pulled beef
+    - Pumpkin bread
+    - Pumpkin pie spice
+    - Pumpkin seed oil
+    - Pupusa
+    - Quesadilla
+    - Quiche Lorraine
+    - Quinoa salad
+    - Rabbit stew
+    - Radish cake
+    - Ramen noodle soup
+    - Ravioli lasagna
+    - Red beans and rice
+    - Red velvet cake
+    - Reuben sandwich
+    - Rice and beans
+    - Rice cake
+    - Rice noodle soup
+    - Rice pudding
+    - Acai
+    - Acerola
+    - Apricot
+    - Blackberry
+    - Blood orange
+    - Boysenberry
+    - Breadfruit
+    - Cactus pear
+    - Cantaloupe
+    - Cherimoya
+    - Cranberry
+    - Currant
+    - Dragonfruit
+    - Elderberry
+    - Feijoa
+    - Fig
+    - Gooseberry
+    - Guava
+    - Honeydew
+    - Jackfruit
+    - Jujube
+    - Kiwi
+    - Kumquat
+    - Longan
+    - Lychee
+    - Mango
+    - Mulberry
+    - Nectarine
+    - Papaya
+    - Passionfruit
+    - Pawpaw
+    - Persimmon
+    - Pineapple
+    - Plum
+    - Pomegranate
+    - Quince
+    - Rambutan
+    - Red currant
+    - Starfruit
+    - Tangerine
+    - Ugli fruit
+    - Watermelon
+    - Artichoke
+    - Asparagus
+    - Beetroot
+    - Bok choy
+    - Broccoflower
+    - Broccolini
+    - Brussels sprouts
+    - Butternut squash
+    - Cabbage
+    - Carrot
+    - Cauliflower
+    - Celeriac
+    - Chard
+    - Collard greens
+    - Daikon
+    - Endive
+    - Fennel
+    - Garlic scapes
+    - Ginger
+    - Horseradish
+    - Jicama
+    - Kale
+    - Kohlrabi
+    - Leek
+    - Mache
+    - Mustard greens
+    - Okra
+    - Onion
+    - Parsnip
+    - Pea shoots
+    - Pumpkin
+    - Radicchio
+    - Radish
+    - Rapini
+    - Rutabaga
+    - Scallion
+    - Sorrel
+    - Spaghetti squash
+    - Spinach
+    - Spaghetti squash
+    - Sunchoke
+    - Sweet potato
+    - Swiss chard
+    - Taro
+    - Turnip greens
+    - Watercress
+    - Winter squash
+    - Yam
+    - Bison
+    - Carp
+    - Catfish
+    - Chicken gizzard
+    - Cornish game hen
+    - Duck
+    - Elk
+    - Emu
+    - Frog legs
+    - Goat
+    - Goose
+    - Grouse
+    - Guinea fowl
+    - Haddock
+    - Halibut
+    - Kangaroo
+    - Lamprey
+    - Llama
+    - Lobster
+    - Mahi-mahi
+    - Mussels
+    - Octopus
+    - Ostrich
+    - Pheasant
+    - Quail
+    - Rabbit
+    - Rattlesnake
+    - Scallops
+    - Squab
+    - Swordfish
+    - Tilapia
+    - Trout
+    - Tuna
+    - Veal sweetbreads
+    - Venison
+    - Wild boar
+    - Wild turkey
+    - Yellowtail

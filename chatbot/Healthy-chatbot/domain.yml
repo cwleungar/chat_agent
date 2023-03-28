@@ -7,8 +7,6 @@ session_config:
 intents:
 - where_i_live
 - greet
-- inquire_time_difference
-- inquire_time
 - goodbye
 - affirm
 - deny
@@ -19,18 +17,10 @@ intents:
 - asking_should_i_eat
 - tell_info
 - repeat_name
-- give_name:
-    use_entities: 
-      - name
-- give_age:
-    use_entities:
-      - age
-- give_weight:
-    use_entities: 
-      - weight
-- give_height:
-    use_entities: 
-      - height
+- give_name
+- give_age
+- give_weight
+- give_height
 - inquire_bmi
 - asking_should_i_exercise
 
@@ -40,7 +30,7 @@ entities:
 - place
 - name        # user's name
 - age         # user's age
-- target_food
+- food
 - bmi         # user's bmi
 - weight      # user's weight
 - height      # user's height
@@ -67,7 +57,7 @@ responses:
   utter_ask_weight:
   - text: What is your weight(kg) ? Please tell me in numeric. (e.g. 55, 77)
   utter_ask_height:
-  - text: What is your height(m) ? Please tell me in numeric. (e.g. 1.54, 1.82)
+  - text: What is your height(cm) ? Please tell me in numeric. (e.g. 154, 182)
   
   utter_thankyou:
   - text: "ok, thank you!"
@@ -78,12 +68,14 @@ responses:
     image: https://i.imgur.com/remYZUZ.jpeg
   utter_encourage_healthyeating:
   - text: "You should eat healthy food !!"
-    image: https://i.imgur.com/MxAwWwa.jpeg
  
 
 
 actions:
 - action_receive_name
+- action_receive_age
+- action_receive_weight
+- action_receive_height
 - action_say_name
 - action_remember_where
 - action_tell_time
@@ -93,13 +85,14 @@ actions:
 - action_say_age
 - action_say_bmi
 - action_calculate_bmi
+- action_check_food       # from Ng Ho
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot
 # form will be triggered by rule -> see rules.yml
-forms:
+forms:          
   # form for filling user's name 
-  info_form:
+  info_form:            # <<--- wasted now, no gonna use it 
     # ignore these intents for this form
     ignored_intents:
     - bot_challenge
@@ -111,57 +104,42 @@ forms:
     - weight
     - height
 
-  # form for getting user's bmi
-  # bmi_form:
-  #   required_slots:
-  #   - 
-
-
 
 slots:
   name:       # slot storing user's name
     type: text
     initial_value: null
-    influence_conversation: true
     mappings:               
-    - type: from_entity          
+    - type: from_entity            
       entity: name
-      conditions:
-      - active_loop: info_form      # it means the slot will only be filled with entity name when the form loop is active
 
   age:
     type: text
     initial_value: null
-    influence_conversation: true
     mappings:               
     - type: from_entity          
       entity: age
-      conditions:
-      - active_loop: info_form 
+
 
   weight:
     type: float
     initial_value: null
-    influence_conversation: true
     mappings:               
     - type: from_entity          
       entity: weight
-      conditions:
-      - active_loop: info_form 
+
   
   height:
     type: float
     initial_value: null
-    influence_conversation: true
     mappings:               
     - type: from_entity          
       entity: height
-      conditions:
-      - active_loop: info_form 
+
 
   bmi:
     type: float
     initial_value: null
     mappings:               
-    - type: custom          
+    - type: custom            # custom means we are just need to assign the slot by custom action, fuck the forms and entity   
       entity: bmi

@@ -2,8 +2,12 @@ recipe: default.v1
 assistant_id: 20230327-174028-emerald-drip
 language: en
 
+# # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
+# # If you'd like to customize it, uncomment and adjust the pipeline.
+# # See https://rasa.com/docs/rasa/tuning-your-model for more information.
 pipeline:
   - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
@@ -11,11 +15,24 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    entity_recognition: True
     epochs: 100
+    constrain_similarities: true
+    entity_recognition: False
+  - name: EntitySynonymMapper
   - name: RegexEntityExtractor
+    case_sensitive: False
     use_lookup_tables: True
+  - name: ResponseSelector
+    epochs: 100
+    constrain_similarities: true
+  - name: FallbackClassifier
+    threshold: 0.3
+    ambiguity_threshold: 0.1
 
+
+# # No configuration for policies was provided. The following default policies were used to train your model.
+# # If you'd like to customize them, uncomment and adjust the policies.
+# # See https://rasa.com/docs/rasa/policies for more information.
 policies:
   - name: MemoizationPolicy
   - name: TEDPolicy
