@@ -14,33 +14,70 @@ rules:
 
 
 ## Custom rules here
-# trigger the name form filling
 
-# rule activating the form
-- rule: Activate name form
+# user asking if he/she should eat this
+- rule: eat healthy path 1
   steps:
-    - intent: tell_name         # whenever we see this intent appear,
-    - action: utter_ask_name
-    - action: name_form         # form is just like action by exist in an loop
+  - intent: asking_should_i_eat
+  - action: utter_encourage_healthyeating
+
+# encourage user to do sports
+- rule: do sports path 1
+  steps:
+  - intent: asking_should_i_exercise 
+  - action: utter_encourage_exercise
+
+
+# trigger the name form filling
+# rule activating the form
+- rule: Activate info form
+  steps:
+    - intent: tell_info         # whenever we see this intent appear,
+    - action: info_form         # form is just like action by exist in an loop
     # active_loop means will keep requesting slots in the form
     # until the all slots value in the form is filled in (first_name, last_name in this case)          
-    - active_loop: name_form
+    - active_loop: info_form
 
 
 # rule handling deactivation of the form
-- rule: Submit name form
+- rule: Submit info form
   
   ##### this condition block indicate when the form is filled-in completely
   condition:                  # ensure that we are in the active loop
-  - active_loop: name_form          
+  - active_loop: info_form          
   steps:
-    - action: name_form       # in the loop, we are running current name form
-    # active_loop means 
+    - action: info_form       # in the loop, we are running current name form
     - active_loop: null       
     - slot_was_set: 
       - requested_slot: null     # no more slot is being request
   ##### 
-
   # when the form is done, we will do the following action
     - action: utter_thankyou
     - action: utter_user_name
+    - action: action_calculate_bmi
+
+
+# # rule handle intent during info_form loop
+# - rule: ask question during info form
+#   condition:                 # condition that name form is active
+#   - active_loop: info_form        
+#   steps:
+
+#     # this rule handle `give_name` intent during form activation
+#     - intent: give_name
+#     - action: utter_ask_age       # after getting name, ask for user's age 
+#     # return to form after handling the `chitchat` intent
+#     - action: info_form
+#     - active_loop: info_form
+
+#     - intent: give_age
+#     - action: utter_ask_weight     # ask for weight
+#     # return to form after handling the `chitchat` intent
+#     - action: info_form
+#     - active_loop: info_form
+
+#     - intent: give_weight
+#     - action: utter_ask_height      # ask for height
+#     # return to form after handling the `chitchat` intent
+#     - action: info_form
+#     - active_loop: info_form

@@ -1,3 +1,5 @@
+recipe: default.v1
+assistant_id: 20230327-174028-emerald-drip
 language: en
 
 pipeline:
@@ -9,7 +11,7 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    entity_recognition: False
+    entity_recognition: True
     epochs: 100
   - name: RegexEntityExtractor
     use_lookup_tables: True

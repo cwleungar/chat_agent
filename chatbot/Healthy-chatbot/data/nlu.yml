@@ -106,34 +106,47 @@ nlu:
     - Is it okay to eat the [apple](target_food) 
     - Should I avoid eating [apple](target_food)?
 
-# User want to tell his/her name
-- intent: tell_name
+- intent: asking_should_i_exercise
   examples: |
+    - should I exercise ?
+    - should i workout?
+    - do you think i need to do sports?
+    - how to be healthy
+
+# User want to tell his/her name
+- intent: tell_info
+  examples: |
+    - tell you my name
+    - tell you my personal information
+    - tell you my info
+    - tell you something about me
+    - tell you my health information
     - let me give you my name
     - I want to tell you my name
     - I will let you know my name
     - do you want to know my name?
 
+
 # User giving his/her name to rasa
 # note that entity type is marked with (), and entity value example is given in [] for training
 - intent: give_name
   examples: |
-    - my name is [kai](first_name_entity)       
-    - [vincent](first_name_entity) 
-    - [rachael](first_name_entity) 
-    - [york](first_name_entity) 
-    - [emma](first_name_entity) 
-    - [jenny](first_name_entity) 
-    - [steven](first_name_entity) 
-    - [frankie](first_name_entity) 
-    - [sam](first_name_entity) 
-    - [tommy](first_name_entity) 
-    - [sharon](first_name_entity) 
-    - [gary](first_name_entity) 
-    - [blake](first_name_entity) 
-    - [kai](first_name_entity) 
-    - My last name is [Lam](last_name_entity)
-    - My surname is [Lam](last_name_entity)
+    - my name is [kai](name)       
+    - [vincent](name) 
+    - [rachael](name) 
+    - [york](name) 
+    - [emma](name) 
+    - [jenny](name) 
+    - [steven](name) 
+    - [frankie](name) 
+    - [sam](name) 
+    - [tommy](name) 
+    - [sharon](name) 
+    - [gary](name) 
+    - [blake](name) 
+    - [kai](name) 
+    - My last name is [Lam](name)
+    - My surname is [Lam](name)
 
 # user ask the chatbot to sayout his/her name
 - intent: repeat_name
@@ -144,7 +157,7 @@ nlu:
 
 
 # lookup table -> train to generate case-sensitive regex patterns 
-- lookup: first_name_entity
+- lookup: name
   examples: |
     - kai
     - jenny
@@ -160,3 +173,53 @@ nlu:
     - vincent
     - andy
     - henry
+
+
+# User telling his/her age to rasa
+- intent: give_age
+  examples: |
+    - my age is [19](age)
+    - I am [19](age)
+    - I am [20](age) years old
+
+# regex pattern for training data to better extract the age entity
+- regex: age
+  examples: |
+    - \d{1, 2, 3}
+
+# User telling his/her weight to rasa
+- intent: give_weight
+  examples: |
+    - my weight is [39](weight)kg
+    - I am [55](weight)kg
+    - I weigh [78](weight)kg.
+    - my weight is [39](weight)
+    - I am [55](weight)
+    - I weigh [78](weight).
+  
+# regex pattern for training data to better extract the age entity
+- regex: weight
+  examples: |
+    - ((\d{2,3})|(\d{2,3}.\d+))kg
+
+# User telling his/her height to rasa
+- intent: give_height
+  examples: |
+    - my height is [1.69](height)m
+    - I am [1.7](height)m
+    - I am [1.85](height)m tall.
+    - my height is [1.69](height)
+    - I am [1.7](height)
+    - I am [1.85](height) tall.
+
+# regex pattern for training data to better extract the age entity
+- regex: height
+  examples: |
+    - ^1.\d+
+
+- intent: inquire_bmi
+  examples: |
+    - what is my bmi?
+    - i want to now my bmi value
+    - am i healthy enough now ?
+    

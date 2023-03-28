@@ -17,18 +17,33 @@ intents:
 - bot_challenge
 - inquire_food_nutrition
 - asking_should_i_eat
-- tell_name
-- give_name
+- tell_info
 - repeat_name
+- give_name:
+    use_entities: 
+      - name
+- give_age:
+    use_entities:
+      - age
+- give_weight:
+    use_entities: 
+      - weight
+- give_height:
+    use_entities: 
+      - height
+- inquire_bmi
+- asking_should_i_exercise
 
 
 # simple entity definitions 
 entities:
 - place
-- name
-- first_name_entity
-- last_name_entity
-
+- name        # user's name
+- age         # user's age
+- target_food
+- bmi         # user's bmi
+- weight      # user's weight
+- height      # user's height
 
 responses:
   utter_greet:
@@ -44,12 +59,28 @@ responses:
   - text: Bye
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
-  utter_ask_name:
-  - text: What is your name?
+  # used for info form,  they are automatically binded to the form
+  utter_ask_name:   
+  - text: What is your name?  
+  utter_ask_age:
+  - text: What is your age? Please tell me in Arabic numerals. (e.g. 22, 30, 18)
+  utter_ask_weight:
+  - text: What is your weight(kg) ? Please tell me in numeric. (e.g. 55, 77)
+  utter_ask_height:
+  - text: What is your height(m) ? Please tell me in numeric. (e.g. 1.54, 1.82)
+  
   utter_thankyou:
   - text: "ok, thank you!"
   utter_user_name:
-  - text: "I will remember your name is {first_name} {last_name} !"
+  - text: "I will remember your name is {name}!"
+  utter_encourage_exercise:
+  - text: "Do you wanna be strong? Do exercise now !!"
+    image: https://i.imgur.com/remYZUZ.jpeg
+  utter_encourage_healthyeating:
+  - text: "You should eat healthy food !!"
+    image: https://i.imgur.com/MxAwWwa.jpeg
+ 
+
 
 actions:
 - action_receive_name
@@ -58,28 +89,79 @@ actions:
 - action_tell_time
 - action_time_difference
 - utter_greet
-- action_receive_lastname
-- action_receive_firstname
+- action_say_weight
+- action_say_age
+- action_say_bmi
+- action_calculate_bmi
 
 ## forms definitions
+# form is just like a loop keep listening user until we get the required slot
 # form will be triggered by rule -> see rules.yml
 forms:
   # form for filling user's name 
-  name_form:
+  info_form:
+    # ignore these intents for this form
+    ignored_intents:
+    - bot_challenge
+    - greet
+    - goodbye
     required_slots:     # refer to the slots below
-    - first_name
-    - last_name   
+    - name  
+    - age
+    - weight
+    - height
+
+  # form for getting user's bmi
+  # bmi_form:
+  #   required_slots:
+  #   - 
+
 
 
 slots:
-  first_name:
+  name:       # slot storing user's name
     type: text
-    mappings:                   # This will explicitly map the entity "first_name_entity" to the slot "first_name" when the relevant entity is detected in the text.
-    - type: from_entity         # custom means from slot can be filled by action
-      entity: first_name_entity 
+    initial_value: null
+    influence_conversation: true
+    mappings:               
+    - type: from_entity          
+      entity: name
+      conditions:
+      - active_loop: info_form      # it means the slot will only be filled with entity name when the form loop is active
 
-  last_name:
-    type: text  
-    mappings:
-    - type: from_entity
-      entity: last_name_entity
+  age:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:               
+    - type: from_entity          
+      entity: age
+      conditions:
+      - active_loop: info_form 
+
+  weight:
+    type: float
+    initial_value: null
+    influence_conversation: true
+    mappings:               
+    - type: from_entity          
+      entity: weight
+      conditions:
+      - active_loop: info_form 
+  
+  height:
+    type: float
+    initial_value: null
+    influence_conversation: true
+    mappings:               
+    - type: from_entity          
+      entity: height
+      conditions:
+      - active_loop: info_form 
+
+  bmi:
+    type: float
+    initial_value: null
+    mappings:               
+    - type: custom          
+      entity: bmi

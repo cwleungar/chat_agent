@@ -36,5 +36,8 @@ stories:
   - action: utter_goodbye
 
 
-
-# Healthly wellbeing - Food Nutrition development part
+# Healthly wellbeing 
+- story: inquiring bmi
+  steps:
+  - intent: inquire_bmi
+  - action: action_say_bmi
