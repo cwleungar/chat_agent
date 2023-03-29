@@ -60,6 +60,12 @@ rules:
   - action: action_receive_height
   - action: action_say_height
 
+# when user ask about how much nutrient he/she obtained already
+- rule: inquiring nutrition
+  steps:
+  - intent: asking_nutrition_cumulated
+  - action: action_report_nutrition
+
 
 # FUCK THIS FORM now, no gonna use it
 # # trigger the name form filling

@@ -270,19 +270,85 @@ class ActionCheckFood(Action):
         listHolder = nutritionValue['foods']
         realDict = listHolder[0]
 
-        msg += "\nCalories: " + str(realDict.get("nf_calories"))
-        msg += "\nTotal fat: " + str(realDict.get("nf_total_fat"))
-        msg += "\nSaturated fat: " + str(realDict.get("nf_saturated_fat"))
-        msg += "\nCholesterol: " + str(realDict.get("nf_cholesterol"))
-        msg += "\nSodium: " + str(realDict.get("nf_sodium"))
-        msg += "\nCarbohydrates: " + str(realDict.get("nf_total_carbohydrate"))
-        msg += "\nDietary fiber: " + str(realDict.get("nf_dietary_fiber"))
-        msg += "\nSugars: " + str(realDict.get("nf_sugars"))
-        msg += "\nProtein: " + str(realDict.get("nf_protein"))
-        msg += "\nPotassium: " + str(realDict.get("nf_potassium"))
+        msg += "\nCalories: " + str(realDict.get("nf_calories")) + "kcal"
+        msg += "\nTotal fat: " + str(realDict.get("nf_total_fat")) + "g"
+        msg += "\nSaturated fat: " + str(realDict.get("nf_saturated_fat")) + "g"
+        msg += "\nCholesterol: " + str(realDict.get("nf_cholesterol")) + "mg"
+        msg += "\nSodium: " + str(realDict.get("nf_sodium")) + "mg"
+        msg += "\nCarbohydrates: " + str(realDict.get("nf_total_carbohydrate")) + "g"
+        msg += "\nDietary fiber: " + str(realDict.get("nf_dietary_fiber")) + "g"
+        msg += "\nSugars: " + str(realDict.get("nf_sugars")) + "g"
+        msg += "\nProtein: " + str(realDict.get("nf_protein")) + "g"
+        msg += "\nPotassium: " + str(realDict.get("nf_potassium")) + "mg"
+
+        # update cumulated calories, sugar, fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, protein, potassium
+        # get the value in slot "calories"
+        calories = tracker.get_slot("calories_cumulated")
+        sugar = tracker.get_slot("sugar_cumulated")
+        fat = tracker.get_slot("fat_cumulated")
+        saturated_fat = tracker.get_slot("saturated_fat_cumulated")
+        cholesterol = tracker.get_slot("cholesterol_cumulated")
+        sodium = tracker.get_slot("sodium_cumulated")
+        total_carbohydrate = tracker.get_slot("total_carbohydrate_cumulated")
+        dietary_fiber = tracker.get_slot("dietary_fiber_cumulated")
+        protein = tracker.get_slot("protein_cumulated")
+        potassium = tracker.get_slot("potassium_cumuulated")
+
+       
+
+        dispatcher.utter_message(text = msg)
+        return [
+            SlotSet("calories_cumulated", calories + float(realDict.get("nf_calories"))),
+            SlotSet("sugar_cumulated", sugar + float(realDict.get("nf_sugars"))),
+            SlotSet("fat_cumulated", fat + float(realDict.get("nf_total_fat"))),
+            SlotSet("saturated_fat_cumulated", saturated_fat + float(realDict.get("nf_saturated_fat"))),
+            SlotSet("cholesterol_cumulated", cholesterol + float(realDict.get("nf_cholesterol"))),
+            SlotSet("sodium_cumulated", sodium + float(realDict.get("nf_sodium"))),
+            SlotSet("total_carbohydrate_cumulated", total_carbohydrate + float(realDict.get("nf_total_carbohydrate"))),
+            SlotSet("dietary_fiber_cumulated", dietary_fiber + float(realDict.get("nf_dietary_fiber"))),
+            SlotSet("protein_cumulated", protein + float(realDict.get("nf_protein"))),
+            SlotSet("potassium_cumuulated", potassium + float(realDict.get("nf_potassium")))
+        ]
+
+# action_report_nutrition
+class ActionReportNutrition(Action):
+
+    def name(self) -> Text:
+        return "action_report_nutrition"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # get the requested nutrition type
+        request = tracker.get_slot("nutrition_requested")
+        msg = ""
+        if request == "calories":
+            msg = f"You have eaten {tracker.get_slot('calories_cumulated'):.3g} kcal today."
+        elif request == "sugar":
+            msg = f"You have eaten {tracker.get_slot('sugar_cumulated'):.3g} grams of sugar today."
+        elif request == "fat":
+            msg = f"You have eaten {tracker.get_slot('fat_cumulated'):.3g} grams of fat today."
+        elif request == "saturated_fat":
+            msg = f"You have eaten {tracker.get_slot('saturated_fat_cumulated'):.3g} grams of saturated fat today."
+        elif request == "cholesterol":
+            msg = f"You have eaten {tracker.get_slot('cholesterol_cumulated'):.3g} milligrams of cholesterol today."
+        elif request == "sodium":
+            msg = f"You have eaten {tracker.get_slot('sodium_cumulated'):.3g} milligrams of sodium today."
+        elif request == "total_carbohydrate":
+            msg = f"You have eaten {tracker.get_slot('total_carbohydrate_cumulated'):.3g} grams of total carbohydrates today."
+        elif request == "dietary_fiber":
+            msg = f"You have eaten {tracker.get_slot('dietary_fiber_cumulated'):.3g} grams of dietary fiber today."
+        elif request == "protein":
+            msg = f"You have eaten {tracker.get_slot('protein_cumulated'):.3g} grams of protein today."
+        elif request == "potassium":
+            msg = f"You have eaten {tracker.get_slot('potassium_cumuulated'):.3g} milligrams of potassium today."
+        else:
+            msg = "Sorry, I don't know what you want to know."
 
         dispatcher.utter_message(text = msg)
         return []
+
 
 #----------------------------------------------------------------------------
 #York's sport action

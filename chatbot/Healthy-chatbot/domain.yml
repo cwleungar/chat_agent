@@ -38,6 +38,8 @@ entities:
 - duration      #York's sport
 - unit          #York's sport
 - activitylevel #York's sport
+- nutrition_requested
+
 
 responses:
   utter_greet:
@@ -93,6 +95,8 @@ actions:
 - action_check_food       # from Ng Ho
 - action_analyis_sport    # from York
 - action_activitylevel    # from York
+- action_report_nutrition
+
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot
@@ -148,6 +152,76 @@ slots:
     initial_value: null
     mappings:               
     - type: custom            # custom means mapping to a custom action
+
+  # for nutrition keep track
+
+  nutrition_requested:
+    type: text
+    initial_value: null
+    mappings:
+    - type: from_entity
+      entity: nutrition_requested
+
+  calories_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  sugar_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  protein_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  fat_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  saturated_fat_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  sodium_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  cholesterol_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  total_carbohydrate_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+  
+  dietary_fiber_cumulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  potassium_cumuulated:
+    type: float
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
 
   #---------------------------------------------
   #York's sport

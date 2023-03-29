@@ -82,6 +82,9 @@ nlu:
 - intent: check_food
   examples: |
     - i had a [cheeseburger](food)
+    - i have eaten a [cheeseburger](food)
+    - i ate a [cheeseburger](food)
+    - i just ate some [cheeseburger](food)
     - what is the nutrition value of a [chicken sandwich](food)?
     - how healthy is [instant noodle](food)?
     - i ate some [hawaiian pizza](food)
@@ -96,6 +99,32 @@ nlu:
     - Can I eat the [apple](food) 
     - Is it okay to eat the [apple](food) 
     - Should I avoid eating [apple](food)?
+# user asking for nutrition he/she obtained so far
+- intent: asking_nutrition_cumulated
+  examples: |
+    - how many [calories](nutrition_requested) have I get today?
+    - how much [calories](nutrition_requested) have I obtained today?
+    - how many [calories](nutrition_requested) have I consumed today?
+    - how much [calories](nutrition_requested) have I eaten today?
+    - how much [calories](nutrition_requested) I eat today?
+    - how much [calories](nutrition_requested) I consmue today?
+    - how much [calories](nutrition_requested) have I taken today?
+    - what amount of [calories](nutrition_requested) have I consumed today?
+    - what amount of [calories](nutrition_requested) have I eaten today?
+
+- lookup: nutrition_requested
+  examples: |
+    - calories
+    - fat
+    - protein
+    - carbohydrate
+    - sugar
+    - sodium
+    - cholesterol
+    - potassium
+    - saturated fat
+    - dietary fiber
+
 
 - intent: asking_should_i_exercise
   examples: |
