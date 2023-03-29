@@ -15,7 +15,6 @@ rules:
 
 ## Custom rules here
 
-
 # user asking if he/she should eat this
 - rule: eat healthy path 1
   steps:
@@ -25,7 +24,7 @@ rules:
 
 - rule: eat healthy path 2
   steps:
-  - intent: inquire_food_nutrition
+  - intent: check_food
   - action: utter_encourage_healthyeating
   - action: action_check_food
 
@@ -41,6 +40,27 @@ rules:
   - intent: inquire_bmi
   - action: action_calculate_bmi
   - action: action_say_bmi
+
+# user tell the bot his/her name
+- rule: get user name
+  steps:
+  - intent: give_name
+  - action: utter_user_name
+  - action: utter_nice_to_meet_you
+
+# when user mentioning his weight -> caputre it down to slot by custom action
+- rule: get user weight
+  steps:
+  - intent: give_weight
+  - action: action_receive_weight
+  - action: action_say_weight
+
+# when user mentioning his height -> caputre it down to slot by custom action
+- rule: get user height
+  steps:
+  - intent: give_height
+  - action: action_receive_height
+  - action: action_say_height
 
 
 # FUCK THIS FORM now, no gonna use it

@@ -5,48 +5,9 @@ import dateparser
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
-
+import re
 
 #### custom action Start here:
-
-
-# action_receive_name
-# the chatbot will set the slot "name" to the text it received from user
-class ActionReceiveName(Action):
-
-    def name(self) -> Text:
-        return "action_receive_name"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        text_received = tracker.latest_message['text']          # use tracker to get the message history from user
-        dispatcher.utter_message(text=f"{text_received}, hi nice to meet you")        # say something to user
-        
-        # return a list of event
-        return [SlotSet("name", text_received)]                 # set the slot name
-
-# action_receive_age
-# the chatbot will set the slot "age" to the text it received from user
-class ActionReceiveAge(Action):
-
-    def name(self) -> Text:
-        return "action_receive_age"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        text_received = tracker.latest_message['text']          # use tracker to get the message history from user
-        
-        age = None
-        try: 
-           age = int(text_received)
-        except ValueError:
-            pass
-        # return a list of event
-        return [SlotSet("age", age)]                 
 
 # action_receive_weight
 class ActionReceiveWeight(Action):
@@ -59,12 +20,27 @@ class ActionReceiveWeight(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         text_received = tracker.latest_message['text']          # use tracker to get the message history from user
-            
-        weight = None
-        try: 
-            weight = float(text_received)
-        except ValueError:
-            pass
+
+        # use regex to extract the weight number from the text 
+        res = re.search("(\d{2,3})\s?(kg|lb)?", text_received, re.IGNORECASE)
+        weight = None        
+        # if no matching
+        if not res:
+            return [SlotSet("weight", None)]            # set the slot be None
+        else:
+            # get if it is kg or lb
+            unit = res.group(2)
+            if not unit and unit == "lb":       # if unit is None or lb
+                try:
+                    weight = float(res.group(1)) * 0.45359237       # convert lb to kg
+                except ValueError:
+                    pass
+            else:
+                # we assume if no unit is given, it is kg here
+                try:
+                    weight = float(res.group(1))
+                except ValueError:
+                    pass
             
         # return a list of event
         return [SlotSet("weight", weight)]
@@ -80,12 +56,27 @@ class ActionReceiveHeight(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         text_received = tracker.latest_message['text']          # use tracker to get the message history from user
-           
+        # use regex to extract the weight number from the text 
+        res = re.search("([12]\.?\d{2})\s?(m|cm)?", text_received, re.IGNORECASE)
         height = None
-        try: 
-            height = float(text_received)
-        except ValueError:
-            pass
+        if not res: # if no matching
+            return [SlotSet("height", None)]            # set the slot be None
+        else:
+            # get if it is m or cm
+            unit = res.group(2)
+            if not unit and unit == "cm":       # if unit is None or cm
+                try:
+                    height = float(res.group(1)) * 0.01       # convert cm to m
+                except ValueError:
+                    pass
+            else:
+                try:
+                    height = float(res.group(1))
+                    # i guess no one can taller than 5m (?)
+                    if height > 5:      # if height is greater 5, we assume the unit is cm here
+                        height *= 0.01              # conver cm to m
+                except ValueError:
+                    pass
 
         # return a list of event
         return [SlotSet("height", height)]
@@ -102,7 +93,7 @@ class ActionCalculateBmi(Action):
                 domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
     
             bmi = tracker.get_slot("bmi")         # get the value in slot "bmi"
-            if bmi is not None:     
+            if bmi is not None:                 # if already has bmi, no need to calculate again   
                 return []
 
             weight = tracker.get_slot("weight")         # get the value in slot "weight"
@@ -112,8 +103,9 @@ class ActionCalculateBmi(Action):
             if not weight or not height:
                 dispatcher.utter_message(text="I dont have enough information for you BMI now. Sorry.")
             else:
+                dispatcher.utter_message(text=f"Your weight is {weight} kg and your height is {height} m. Let me calculate your BMI...")
                 try:
-                    bmi = weight / (height/100)**2
+                    bmi = weight / height**2
                     dispatcher.utter_message(text=f"Your BMI is {bmi}!")        
                 except:
                     dispatcher.utter_message(text="Error calculating your BMI. Sorry.")
@@ -145,27 +137,7 @@ class ActionSayName(Action):
         # return a list of event
         return []
 
-# the chatbot will say the name of user when user ask it to do so
-class ActionSayAge(Action):
-
-    def name(self) -> Text:
-        return "action_say_age"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        age = tracker.get_slot("age")         # get the value in slot "age"
-        
-        # if age is None, i.e. havent get user's age
-        if not age:
-            dispatcher.utter_message(text="I dont have your age wor ")
-        else:            
-            dispatcher.utter_message(text=f"Your age is {age}!")        
-        
-        # return a list of event
-        return []
-
+# action_say_weight
 class ActionSayWeight(Action):
 
     def name(self) -> Text:
@@ -179,9 +151,30 @@ class ActionSayWeight(Action):
         
         # if weight is None, i.e. havent get user's weight
         if not weight:
-            dispatcher.utter_message(text="I dont have your weight wor ")
+            dispatcher.utter_message(text="Something went wrong to get your weight. Sorry")
         else:            
-            dispatcher.utter_message(text=f"Your weight is {weight}!")        
+            dispatcher.utter_message(text=f"I remember your weight is {weight}kg!")        
+        
+        # return a list of event
+        return []
+
+# action_say_height
+class ActionSayHeight(Action):
+
+    def name(self) -> Text:
+        return "action_say_height"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        height = tracker.get_slot("height")         # get the value in slot "height"
+        
+        # if height is None, i.e. havent get user's height
+        if not height:
+            dispatcher.utter_message(text="Something went wrong to get your height. Sorry")
+        else:            
+            dispatcher.utter_message(text=f"I remember your height is {height}m!")        
         
         # return a list of event
         return []
@@ -198,14 +191,37 @@ class ActionSayBmi(Action):
 
         bmi = tracker.get_slot("bmi")         # get the value in slot "bmi"
         
+        bmi_health_range = {
+                18.5: "You are unerweight. Please eat more!",
+                24.9: "You are normal weight. Keep it up!",
+                29.9: "You are overweight. Please exercise more!",
+                34.9: "You are obese. Please exercise more!",
+                39.9: "You are severely obese. Please exercise more!!!",
+                40: "You are extremely fat. Get out of your room and exercise right now !!!!!"
+        }
+
         # if bmi is None, i.e. havent get user's bmi
         if not bmi:
             dispatcher.utter_message(text="I dont have enough information for you BMI now. Sorry.")
-        else:            
-            dispatcher.utter_message(text=f"Your BMI is {bmi}!")        
-        
+        else:     
+            dispatcher.utter_message(text=f"Your BMI is {bmi:.3g}!")        
+            # say some comment to the user based on the bmi
+            if bmi < 18.5:
+                dispatcher.utter_message(text=bmi_health_range[18.5])
+            elif bmi < 24.9:
+                dispatcher.utter_message(text=bmi_health_range[24.9])
+            elif bmi < 29.9:
+                dispatcher.utter_message(text=bmi_health_range[29.9])
+            elif bmi < 34.9:
+                dispatcher.utter_message(text=bmi_health_range[34.9])
+            elif bmi < 39.9:
+                dispatcher.utter_message(text=bmi_health_range[39.9])
+            else:
+                dispatcher.utter_message(text=bmi_health_range[40])
+
         # return a list of event
         return []
+
 
 
 # Ng Ho's API request

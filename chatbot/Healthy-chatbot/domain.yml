@@ -10,10 +10,8 @@ intents:
 - goodbye
 - affirm
 - deny
-- mood_great
-- mood_unhappy
 - bot_challenge
-- inquire_food_nutrition
+- check_food
 - asking_should_i_eat
 - tell_info
 - repeat_name
@@ -31,9 +29,9 @@ entities:
 - name        # user's name
 - age         # user's age
 - food
-- bmi         # user's bmi
-- weight      # user's weight
-- height      # user's height
+- bmi         # user's bmi, not used now
+- weight      # user's weight, not used now
+- height      # user's height, not used now
 
 responses:
   utter_greet:
@@ -63,26 +61,25 @@ responses:
   - text: "ok, thank you!"
   utter_user_name:
   - text: "I will remember your name is {name}!"
+  utter_user_height:
+  - text: "I will remember your height is {height}!"
   utter_encourage_exercise:
   - text: "Do you wanna be strong? Do exercise now !!"
     image: https://i.imgur.com/remYZUZ.jpeg
   utter_encourage_healthyeating:
   - text: "You should eat healthy food !!"
- 
+  utter_nice_to_meet_you:
+  - text: "Nice to meet you {name}!"
 
 
 actions:
-- action_receive_name
-- action_receive_age
 - action_receive_weight
 - action_receive_height
 - action_say_name
 - action_remember_where
-- action_tell_time
-- action_time_difference
 - utter_greet
 - action_say_weight
-- action_say_age
+- action_say_height
 - action_say_bmi
 - action_calculate_bmi
 - action_check_food       # from Ng Ho
@@ -105,6 +102,7 @@ forms:
     - height
 
 
+# bot's memory part
 slots:
   name:       # slot storing user's name
     type: text
@@ -125,21 +123,19 @@ slots:
     type: float
     initial_value: null
     mappings:               
-    - type: from_entity          
-      entity: weight
+    - type: custom          
 
   
   height:
     type: float
     initial_value: null
     mappings:               
-    - type: from_entity          
-      entity: height
+    - type: custom          
 
 
   bmi:
     type: float
     initial_value: null
     mappings:               
-    - type: custom            # custom means we are just need to assign the slot by custom action, fuck the forms and entity   
-      entity: bmi
+    - type: custom            # custom means mapping to a custom action
+      action: action_calculate_bmi

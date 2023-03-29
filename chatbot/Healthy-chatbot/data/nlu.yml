@@ -45,38 +45,6 @@ nlu:
     - don't like that
     - no way
     - not really
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-- intent: mood_unhappy
-  examples: | 
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -94,19 +62,14 @@ nlu:
 # Healthly wellbeing - Food Nutrition part
 # User want to inquire nutrition information of a food
 
-- intent: inquire_food_nutrition
+- intent: check_food
   examples: |
     - i had a [cheeseburger](food)
     - what is the nutrition value of a [chicken sandwich](food)?
     - how healthy is [instant noodle](food)?
     - i ate some [hawaiian pizza](food)
     - nutrtion value of [dumplings](food)
-    - How many calories are in [apple](food)
     - what is the nutritional value of [apple](food)?
-    - How healthy is this [apple](food)?
-    - List the nutrition facts of [apple](food)
-    - How much sugar is in [apple](food)
-    - Can you tell me the content of [apple](food)
 
 # User asking whether he should eat this food
 - intent: asking_should_i_eat
@@ -127,7 +90,6 @@ nlu:
 # User want to tell his/her name
 - intent: tell_info
   examples: |
-    - tell you my name
     - tell you my personal information
     - tell you my info
     - tell you something about me
@@ -143,21 +105,9 @@ nlu:
 - intent: give_name
   examples: |
     - my name is [kai](name)       
-    - [vincent](name) 
-    - [rachael](name) 
-    - [york](name) 
-    - [emma](name) 
-    - [jenny](name) 
-    - [steven](name) 
-    - [frankie](name) 
-    - [sam](name) 
-    - [tommy](name) 
-    - [sharon](name) 
-    - [gary](name) 
-    - [blake](name) 
-    - [kai](name) 
-    - My last name is [Lam](name)
-    - My surname is [Lam](name)
+    - you can call me [vincent](name)  
+    - My nick name is [york](name)
+    - My first name is [sam](name)
 
 # user ask the chatbot to sayout his/her name
 - intent: repeat_name
@@ -186,23 +136,22 @@ nlu:
     - henry
 
 
-# User telling his/her age to rasa
-- intent: give_age
-  examples: |
-    - my age is [19](age)
-    - I am [19](age)
-    - I am [20](age) years old
-    - I am now [21](age) years old
+# # User telling his/her age to rasa
+# - intent: give_age
+#   examples: |
+#     - my age is [19](age)
+#     - I am [19](age)
+#     - I am [20](age) years old
+#     - I am now [21](age) years old
 
 
 # User telling his/her weight to rasa
 - intent: give_weight
   examples: |
     - my weight is [39](weight)kg
-    - I am [55](weight)kg
+    - I am [55](weight)kg heavy
     - I weigh [78](weight)kg.
     - my weight is [39](weight)
-    - I am [55](weight)
     - I weigh [78](weight).
   
 
@@ -210,203 +159,20 @@ nlu:
 - intent: give_height
   examples: |
     - my height is [169](height)cm
-    - I am [170](height)cm
+    - my height is [1.69](height)
     - I am [185](height)cm tall.
-    - my height is [169](height)
-    - I am [179](height)
-    - I am [158](height) tall.
-
-# regex pattern for training data to better extract the age entity
-- regex: height
-  examples: |
-    - ^[1-2]\d{2}
+    - i am 1.69m tall
+    - my height is [1.69](height)m
 
 - intent: inquire_bmi
   examples: |
-    - what is my bmi?
+    - calculate my bmi
     - i want to now my bmi value
-    - am i healthy enough now ?
-    
-
-# long loopup table for weight in kg
-- lookup: weight
-  examples: |
-    - 25
-    - 26
-    - 27
-    - 28
-    - 29
-    - 30
-    - 31
-    - 32
-    - 33
-    - 34
-    - 35
-    - 36
-    - 37
-    - 38
-    - 39
-    - 40
-    - 41
-    - 42
-    - 43
-    - 44
-    - 45
-    - 46
-    - 47
-    - 48
-    - 49
-    - 50
-    - 51
-    - 52
-    - 53
-    - 54
-    - 55
-    - 56
-    - 57
-    - 58
-    - 59
-    - 60
-    - 61
-    - 62
-    - 63
-    - 64
-    - 65
-    - 66
-    - 67
-    - 68
-    - 69
-    - 70
-    - 71
-    - 72
-    - 73
-    - 74
-    - 75
-    - 76
-    - 77
-    - 78
-    - 79
-    - 80
-    - 81
-    - 82
-    - 83
-    - 84
-    - 85
-    - 86
-    - 87
-    - 88
-    - 89
-    - 90
-    - 91
-    - 92
-    - 93
-    - 94
-    - 95
-    - 96
-    - 97
-    - 98
-    - 99
-    - 100
-    - 101
-    - 102
-    - 103
-    - 104
-    - 105
-    - 106
-    - 107
-    - 108
-    - 109
-    - 110
-    - 111
-    - 112
-    - 113
-    - 114
-    - 115
-    - 116
-    - 117
-    - 118
-    - 119
-    - 120
-    - 121
-    - 122
-    - 123
-    - 124
-    - 125
-    - 126
-    - 127
-    - 128
-    - 129
-    - 130
-    - 131
-    - 132
-    - 133
-    - 134
-    - 135
-    - 136
-    - 137
-    - 138
-    - 139
-    - 140
-    - 141
-    - 142
-    - 143
-    - 144
-    - 145
-    - 146
-    - 147
-    - 148
-    - 149
-    - 150
-    - 151
-    - 152
-    - 153
-    - 154
-    - 155
-    - 156
-    - 157
-    - 158
-    - 159
-    - 160
-    - 161
-    - 162
-    - 163
-    - 164
-    - 165
-    - 166
-    - 167
-    - 168
-    - 169
-    - 170
-    - 171
-    - 172
-    - 173
-    - 174
-    - 175
-    - 176
-    - 177
-    - 178
-    - 179
-    - 180
-    - 181
-    - 182
-    - 183
-    - 184
-    - 185
-    - 186
-    - 187
-    - 188
-    - 189
-    - 190
-    - 191
-    - 192
-    - 193
-    - 194
-    - 195
-    - 196
-    - 197
-    - 198
-    - 199
-
+    - am i overweight?
+    - my bmi?
+    - please tell me my bmi
+    - am i obese?
+    - my bmi is ok?
 
 # long lookup table for food entity
 - lookup: food
