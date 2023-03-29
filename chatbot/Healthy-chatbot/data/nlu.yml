@@ -1065,10 +1065,12 @@ nlu:
     - mins
     - min
     - m
+    - h
 
 #lookup for duration Please delete it if fixed
 - lookup: duration
   examples: |
+    - 0.5
     - 1
     - 2
     - 3
