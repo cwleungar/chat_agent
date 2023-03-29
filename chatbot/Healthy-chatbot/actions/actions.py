@@ -284,3 +284,141 @@ class ActionCheckFood(Action):
 
         dispatcher.utter_message(text = msg)
         return []
+
+#----------------------------------------------------------------------------
+#York's sport action
+#Input sport, duration, unit then update activity level
+
+sport_intensity = {
+    'football': 8,
+    'soccer' : 8,
+    'cricket': 4,
+    'field Hockey': 8,
+    'tennis': 8,
+    'volleyball': 6,
+    'table Tennis': 4,
+    'basketball': 8,
+    'baseball': 4,
+    'american Football': 8,
+    'rugby': 8,
+    'boxing': 10,
+    'ice Hockey': 8,
+    'swimming': 6, #[3,10], #depending on stroke and intensity
+    'swim': 6, #[3,10], #depending on stroke and intensity
+    'athletics': 6, #[3,10], #depending on event
+    'gymnastics': 4,
+    'golf': 4,
+    'horse Racing': 6,
+    'auto Racing': 2, #although it requires mental focus and quick reflexes
+    'cycling': 6, #[3,10], #depending on intensity and terrain
+    'badminton': 6
+}
+
+MIN = ["min", "mins", "m"]  #For determine the unit
+
+heathylevel = 600  #Suggested activity level per week #activity level = intensity*mins
+
+class AnalyisSport(Action):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def name(self) -> Text:
+        return "action_analyis_sport"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        activitylevel = float(tracker.get_slot("activitylevel"))
+        sport = next(tracker.get_latest_entity_values("sport"), None)
+        if not sport:
+            sport = tracker.get_slot("sport")
+        duration = next(tracker.get_latest_entity_values("duration"), None)
+        unit = next(tracker.get_latest_entity_values("unit"), None)
+
+        #update durationInMin only when user provide both unit and duration
+        #Get the duration slot if not
+        #only unit do nothing
+        if (unit and duration):
+            try:
+                durationInMin = float(duration)
+                if unit.lower() not in MIN: #unit hour
+                    durationInMin *= 60
+            except:
+                durationInMin = None
+
+        if not duration:
+            duration = tracker.get_slot("duration")
+            try:
+                durationInMin = float(duration)
+            except:
+                durationInMin = None
+
+        #Find intensity
+        if sport:
+            sport = sport.lower()
+            intensity = sport_intensity.get(sport, None)
+        else:
+            intensity = None
+
+        
+        if (intensity and durationInMin):
+            activitylevel += durationInMin*intensity
+            msg = f"Your activity level this week is {activitylevel} out of {heathylevel}"
+            dispatcher.utter_message(text=msg)
+            if activitylevel > heathylevel:
+                msg = f"You have done enough exercise this week"
+            else:
+                msg = f"You should exercise more this week"
+            dispatcher.utter_message(text=msg)
+            #update activitylevel if requirment fulfiled and delete sport and duration slot
+            return [SlotSet("activitylevel", activitylevel), SlotSet("sport", None), SlotSet("duration", None)]
+
+        elif intensity: #Only sport
+            msg = f"I like {sport} as well. It has an intensity level of {intensity} out of 10"
+            dispatcher.utter_message(text=msg)
+            msg = f"You play {sport} for how long?"
+            dispatcher.utter_message(text=msg)
+            return [SlotSet("sport", sport)]
+
+        elif (durationInMin): #Only duration
+            msg = f"What sport did you play?"
+            dispatcher.utter_message(text=msg)
+            return [SlotSet("duration", durationInMin)]
+
+        else: #not intensity and not durationInMin
+            msg = "I didn't recognize the sport. Are you sure it's spelled correctly?"
+            dispatcher.utter_message(text=msg)
+            return []
+
+#Return activity level to user
+class ActivityLevel(Action):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def name(self) -> Text:
+        return "action_activitylevel"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        try:
+            activitylevel = float(tracker.get_slot("activitylevel"))
+        except:
+            activitylevel = 0.0
+        msg = f"Your activity level this week is {activitylevel} out of {heathylevel}"
+        dispatcher.utter_message(text=msg)
+        if activitylevel > heathylevel:
+            msg = f"You have done enough exercise this week"
+        else:
+            msg = f"You need to do more exercise this week"
+        dispatcher.utter_message(text=msg)
+        return []
+
+#end of York's sport action
+#----------------------------------------------------------------------------
