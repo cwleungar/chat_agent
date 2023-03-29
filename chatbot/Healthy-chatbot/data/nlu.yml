@@ -179,6 +179,8 @@ nlu:
     - my height is [1.69](height)
     - I am [185](height)cm tall.
     - i am 1.69m tall
+    - i have a height of 1.69m
+    - i have 1.69m tall
     - my height is [1.69](height)m
 
 - intent: inquire_bmi

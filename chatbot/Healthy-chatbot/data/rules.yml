@@ -31,11 +31,6 @@ rules:
   - action: utter_encourage_healthyeating
   - action: action_check_food
 
-# encourage user to do sports
-- rule: do sports path 1
-  steps:
-  - intent: asking_should_i_exercise 
-  - action: utter_encourage_exercise
 
 # user ask for his/her bmi
 - rule: inquiring bmi

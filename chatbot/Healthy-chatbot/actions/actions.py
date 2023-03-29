@@ -57,7 +57,7 @@ class ActionReceiveHeight(Action):
         
         text_received = tracker.latest_message['text']          # use tracker to get the message history from user
         # use regex to extract the weight number from the text 
-        res = re.search("([12]\.?\d{2})\s?(m|cm)?", text_received, re.IGNORECASE)
+        res = re.search("([12]\.?\d*)\s?(m|cm)?", text_received, re.IGNORECASE)       # assume no one can reach 3m tall
         height = None
         if not res: # if no matching
             return [SlotSet("height", None), SlotSet("duration", None)]            # set the slot be None
@@ -92,9 +92,8 @@ class ActionCalculateBmi(Action):
                 tracker: Tracker,
                 domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
     
-            bmi = tracker.get_slot("bmi")         # get the value in slot "bmi"
-            if bmi is not None:                 # if already has bmi, no need to calculate again   
-                return []
+            bmi = tracker.get_slot("bmi")           # get the value in slot "bmi"
+
 
             weight = tracker.get_slot("weight")         # get the value in slot "weight"
             height = tracker.get_slot("height")         # get the value in slot "height"
@@ -103,10 +102,10 @@ class ActionCalculateBmi(Action):
             if not weight or not height:
                 dispatcher.utter_message(text="I dont have enough information for you BMI now. Sorry.")
             else:
-                dispatcher.utter_message(text=f"Your weight is {weight} kg and your height is {height} m. Let me calculate your BMI...")
+                #dispatcher.utter_message(text=f"Your weight is {weight} kg and your height is {height} m. Let me calculate your BMI...")  for debugging only
                 try:
                     bmi = weight / height**2
-                    dispatcher.utter_message(text=f"Your BMI is {bmi}!")        
+                    #dispatcher.utter_message(text=f"Your BMI is {bmi:.3g}!")           for debugging only
                 except:
                     dispatcher.utter_message(text="Error calculating your BMI. Sorry.")
                 

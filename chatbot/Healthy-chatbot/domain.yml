@@ -20,7 +20,6 @@ intents:
 - give_weight
 - give_height
 - inquire_bmi
-- asking_should_i_exercise
 - i_play_sport              #York's sport
 - ask_for_activitylevel     #York's sport
 - mood_unhappy
@@ -149,7 +148,6 @@ slots:
     initial_value: null
     mappings:               
     - type: custom            # custom means mapping to a custom action
-      action: action_calculate_bmi
 
   #---------------------------------------------
   #York's sport
