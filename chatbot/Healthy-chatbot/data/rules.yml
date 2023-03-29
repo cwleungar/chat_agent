@@ -11,7 +11,10 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-
+- rule: Cheer up when unhappy
+  steps:
+  - intent: mood_unhappy
+  - action: utter_cheer_up
 
 ## Custom rules here
 
@@ -92,3 +95,15 @@ rules:
 #     - action: utter_user_name
 #    
 
+#----------------------------------------------
+#rules for York's sport part
+- rule: Analyis a sport
+  steps:
+  - intent: i_play_sport
+  - action: action_analyis_sport
+
+- rule: Ask for activity level
+  steps:
+  - intent: ask_for_activitylevel
+  - action: action_activitylevel
+#----------------------------------------------

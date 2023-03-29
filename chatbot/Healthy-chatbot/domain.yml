@@ -21,6 +21,9 @@ intents:
 - give_height
 - inquire_bmi
 - asking_should_i_exercise
+- i_play_sport              #York's sport
+- ask_for_activitylevel     #York's sport
+- mood_unhappy
 
 
 # simple entity definitions 
@@ -32,13 +35,19 @@ entities:
 - bmi         # user's bmi, not used now
 - weight      # user's weight, not used now
 - height      # user's height, not used now
+- sport         #York's sport
+- duration      #York's sport
+- unit          #York's sport
+- activitylevel #York's sport
 
 responses:
   utter_greet:
   - text: Hey! How are you?
   utter_cheer_up:
   - text: 'Here is something to cheer you up:'
-    image: https://i.imgur.com/nGF1K8f.jpg
+    custom:
+      attachment: https://youtu.be/dQw4w9WgXcQ
+      type: "video"
   utter_did_that_help:
   - text: Did that help you?
   utter_happy:
@@ -83,6 +92,8 @@ actions:
 - action_say_bmi
 - action_calculate_bmi
 - action_check_food       # from Ng Ho
+- action_analyis_sport    # from York
+- action_activitylevel    # from York
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot
@@ -139,3 +150,30 @@ slots:
     mappings:               
     - type: custom            # custom means mapping to a custom action
       action: action_calculate_bmi
+
+  #---------------------------------------------
+  #York's sport
+  activitylevel:
+    type: float
+    influence_conversation: false
+    initial_value: 0.0
+    mappings:
+      - type: from_entity
+        entity: activitylevel
+
+  sport:
+    type: text
+    influence_conversation: false
+    initial_value: null
+    mappings:
+      - type: from_entity
+        entity: sport
+
+  duration:
+    type: float
+    influence_conversation: false
+    initial_value: null
+    mappings:
+      - type: from_entity
+        entity: duration
+  #---------------------------------------------
