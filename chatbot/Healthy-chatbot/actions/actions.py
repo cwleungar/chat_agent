@@ -26,7 +26,7 @@ class ActionReceiveWeight(Action):
         weight = None        
         # if no matching
         if not res:
-            return [SlotSet("weight", None)]            # set the slot be None
+            return [SlotSet("weight", None), SlotSet("duration", None)]            # set the slot be None
         else:
             # get if it is kg or lb
             unit = res.group(2)
@@ -43,7 +43,7 @@ class ActionReceiveWeight(Action):
                     pass
             
         # return a list of event
-        return [SlotSet("weight", weight)]
+        return [SlotSet("weight", weight), SlotSet("duration", None)]
   
 # action_receive_height
 class ActionReceiveHeight(Action):
@@ -60,7 +60,7 @@ class ActionReceiveHeight(Action):
         res = re.search("([12]\.?\d{2})\s?(m|cm)?", text_received, re.IGNORECASE)
         height = None
         if not res: # if no matching
-            return [SlotSet("height", None)]            # set the slot be None
+            return [SlotSet("height", None), SlotSet("duration", None)]            # set the slot be None
         else:
             # get if it is m or cm
             unit = res.group(2)
@@ -79,7 +79,7 @@ class ActionReceiveHeight(Action):
                     pass
 
         # return a list of event
-        return [SlotSet("height", height)]
+        return [SlotSet("height", height), SlotSet("duration", None)]
 
 
 # calculate BMI based on weight and height slots
