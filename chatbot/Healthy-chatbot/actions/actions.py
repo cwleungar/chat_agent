@@ -4,6 +4,7 @@ import arrow
 import dateparser
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
+from rasa_sdk.events import UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 import re
 
@@ -487,3 +488,20 @@ class ActivityLevel(Action):
 
 #end of York's sport action
 #----------------------------------------------------------------------------
+# action_fallback
+# This action is performed when the bot's action confidence falls below a threshold (Configured in config.yml)
+class ActionDefaultFallback(Action):
+
+    def name(self) -> Text:
+        return "action_fallback"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(response = "utter_fallback")
+
+        # Revert user message which led to fallback.
+        return [UserUtteranceReverted()]

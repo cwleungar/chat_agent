@@ -39,3 +39,6 @@ policies:
     max_history: 5
     epochs: 100
   - name: RulePolicy
+    core_fallback_threshold: 0.05  # Fallback action is executed when bot's action confidence falls below this threshold
+    core_fallback_action_name: "action_fallback"
+    enable_fallback_prediction: True

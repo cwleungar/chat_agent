@@ -81,6 +81,20 @@ responses:
   utter_nice_to_meet_you:
   - text: "Nice to meet you {name}!"
 
+  utter_please_rephrase:
+    - text: I'm sorry, I didn't quite understand that. Could you rephrase your sentence?
+    - text: I'm not sure if I've understood you right. Could you be more specific and rephrase this?
+  utter_fallback:
+    - text: |
+        I'm not sure how to handle that, here are some of the things you can ask me... 
+          • The nutrition value of your meal
+          • The intensity level of different sports
+          • Your BMI
+    - text: |
+        I don't quite know what to do here... maybe you could ask me for some other stuffs like:
+          • The nutrition value of your meal
+          • The intensity level of different sports
+          • Your BMI
 
 actions:
 - action_receive_weight
@@ -96,7 +110,7 @@ actions:
 - action_analyis_sport    # from York
 - action_activitylevel    # from York
 - action_report_nutrition
-
+- action_fallback
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot

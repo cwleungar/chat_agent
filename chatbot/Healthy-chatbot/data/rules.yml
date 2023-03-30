@@ -66,6 +66,11 @@ rules:
   - intent: asking_nutrition_cumulated
   - action: action_report_nutrition
 
+# Ask for rephrasing when bot detects user input with low NLU confidence
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: utter_please_rephrase
 
 # FUCK THIS FORM now, no gonna use it
 # # trigger the name form filling
