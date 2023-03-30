@@ -5,16 +5,20 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-- where_i_live
 - greet
 - goodbye
 - affirm
 - deny
+- mood_unhappy
+- mood_great
+- mood_unmotivated          # Detect unmotivated mood to encourage / motivate user to do sports when they are lazy
 - bot_challenge
 - check_food
 - asking_should_i_eat
 - tell_info
-- repeat_name
+- ask_name
+- ask_weight
+- ask_height
 - give_name
 - give_age
 - give_weight
@@ -22,7 +26,6 @@ intents:
 - inquire_bmi
 - i_play_sport              #York's sport
 - ask_for_activitylevel     #York's sport
-- mood_unhappy
 
 
 # simple entity definitions 
@@ -43,7 +46,14 @@ entities:
 
 responses:
   utter_greet:
-  - text: Hey! How are you?
+  - condition:
+    - type: slot
+      name: name
+      value:
+    text: Hey! How may I help you on your fitness journey today?
+  - text: Hey, {name}! Let's work on getting you into shape today.
+  - text: Hello {name}, how may I help you on your fitness journey today?
+  - text: Greetings {name}! Are you ready to make some positive changes to your health and fitness routine?
   utter_cheer_up:
   - text: 'Here is something to cheer you up:'
     custom:
@@ -51,10 +61,19 @@ responses:
       type: "video"
   utter_did_that_help:
   - text: Did that help you?
+  - text: Do you feel a bit better now?
   utter_happy:
   - text: Great, carry on!
+  - text: Woohoo! That's great news!
+  - text: Awesome! I'm thrilled to hear that everything is going well!
+  - text: Excellent! I'm delighted to hear such positive feedback!
+  - text: Nice! That's fantastic news!
   utter_goodbye:
-  - text: Bye
+  - text: Goodbye then! It was great chatting with you!
+  - text: I'm always here if you need assistance in the future!
+  - text: No problem! Don't hesitate to reach out if you need anything else!
+  - text: See you later then! Have a wonderful rest of your day!
+  - text: See you later then! Take care and have a great day!
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   # used for info form,  they are automatically binded to the form
@@ -76,17 +95,38 @@ responses:
   utter_encourage_exercise:
   - text: "Do you wanna be strong? Do exercise now !!"
     image: https://i.imgur.com/remYZUZ.jpeg
+  - text: Exercise makes us healthy by increasing our strength, endurance and flexibility. You should do it more often!
+  - text: Remember, every sport session counts towards your progress, no matter how small. Keep pushing yourself!
+  - text: Think about how good you'll feel after a workout. Let that thought motivate you to get moving!
+  - text: You're capable of more than you think. Challenge yourself and you might surprise yourself with what you can achieve!
   utter_encourage_healthyeating:
-  - text: "You should eat healthy food !!"
+  - text: "You should eat healthy food!!"
+  - text: Remember, making healthy food choices is important for maintaining good health and energy levels.
+  - text: Remember, eating a variety of foods can help ensure you get all the nutrients your body needs.
+  - text: Healthy eating can be enjoyable! Experiment with new recipes and flavors to make your meals more exciting.
+  - text: Healthy eating is not about deprivation, it's about nourishing your body with the right nutrients.
   utter_nice_to_meet_you:
   - text: "Nice to meet you {name}!"
 
+  utter_please_rephrase:
+    - text: I'm sorry, I didn't quite understand that. Could you rephrase your sentence?
+    - text: I'm not sure if I've understood you right. Could you be more specific and rephrase this?
+  utter_fallback:
+    - text: |
+        I'm not sure how to handle that, here are some of the things you can ask me... 
+          • The nutrition value of your meal
+          • The intensity level of different sports
+          • Your BMI
+    - text: |
+        I don't quite know what to do here... maybe you could ask me for some other stuffs like:
+          • The nutrition value of your meal
+          • The intensity level of different sports
+          • Your BMI
 
 actions:
 - action_receive_weight
 - action_receive_height
 - action_say_name
-- action_remember_where
 - utter_greet
 - action_say_weight
 - action_say_height
@@ -96,7 +136,7 @@ actions:
 - action_analyis_sport    # from York
 - action_activitylevel    # from York
 - action_report_nutrition
-
+- action_fallback
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot

@@ -1,5 +1,7 @@
 version: "3.1"
+
 nlu:
+
 - intent: greet
   examples: |
     - hey
@@ -16,6 +18,7 @@ nlu:
     - goodevening
     - good afternoon
     - hi there
+
 - intent: goodbye
   examples: |
     - cu
@@ -28,6 +31,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+
 - intent: affirm
   examples: |
     - yes
@@ -36,6 +40,7 @@ nlu:
     - of course
     - that sounds good
     - correct
+
 - intent: deny
   examples: |
     - no
@@ -45,6 +50,60 @@ nlu:
     - don't like that
     - no way
     - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I'm sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: mood_unmotivated
+  examples: |
+    - i do not want to do exercise
+    - i am not going to do sports
+    - i am feeling lazy today. i am not gonna do sports
+    - i feel unmotivated about doing sports
+    - i do not feel like doing exercise
+    - i do not want to workout again
+
+- synonym: unmotivated
+  examples: |
+    - demotivated
+    - lazy
+    - tired
+    - exhausted
+    - uninterested
+    - uninspired
+
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -128,7 +187,7 @@ nlu:
 
 - intent: asking_should_i_exercise
   examples: |
-    - should I exercise ?
+    - should I exercise?
     - should i workout?
     - do you think i need to do sports?
     - how to be healthy
@@ -154,14 +213,7 @@ nlu:
     - you can call me [vincent](name)  
     - My nick name is [york](name)
     - My first name is [sam](name)
-
-# user ask the chatbot to sayout his/her name
-- intent: repeat_name
-  examples: |
-    - say my name
-    - repeat my name please
-    - what is my name?
-
+    - I am [blake](name)
 
 # lookup table -> train to generate case-sensitive regex patterns 
 - lookup: name
@@ -180,6 +232,7 @@ nlu:
     - vincent
     - andy
     - henry
+    - carson
 
 
 # # User telling his/her age to rasa
@@ -215,12 +268,50 @@ nlu:
 - intent: inquire_bmi
   examples: |
     - calculate my bmi
-    - i want to now my bmi value
+    - i want to know my bmi value
     - am i overweight?
     - my bmi?
     - please tell me my bmi
     - am i obese?
     - my bmi is ok?
+
+# User asks for his / her name
+- intent: ask_name
+  examples: |
+    - my name
+    - what is my name?
+    - do you remember my name?
+    - say my name
+    - tell me my name
+    - my name what
+    - i forgot about my name
+    - i don't remember my name
+    - who am i?
+
+# User asks for his / her weight
+- intent: ask_weight
+  examples: |
+    - my weight
+    - what is my weight in kg?
+    - can you tell me my weight?
+    - tell me my weight
+    - how much kilos do i weigh?
+    - how fat am i?
+    - i weigh how much kilos
+    - i weigh what
+    - i forgot my weight
+    - i don't remember my weight
+
+# User asks for his / her height
+- intent: ask_height
+  examples: |
+    - my height
+    - what is my height in meter?
+    - can you tell me my height?
+    - tell me my height
+    - how tall am i?
+    - i forgot my height
+    - i don't remember my height
 
 # long lookup table for food entity
 - lookup: food

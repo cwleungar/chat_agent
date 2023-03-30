@@ -2,11 +2,124 @@ version: "3.1"
 
 stories:
 
-# Healthly wellbeing 
-- story: inquiring bmi
+# Happy / sad mood path (from TA)
+
+- story: happy path
   steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+# Unmotivated mood path (by Blake)
+# User feels unmotivated and bot reminds user to do more sports
+
+- story: Unmotivated path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unmotivated
+  - action: utter_encourage_exercise
+
+# Standard user introduction to bot
+# User uses the bot for the first time and introduces himself / herself to bot
+
+- story: User intro path 1
+  steps: 
+  - intent: greet
+  - action: utter_greet
+  - intent: give_name
+  - action: utter_user_name
+  - action: utter_nice_to_meet_you
+  - intent: mood_unmotivated
+  - action: utter_encourage_exercise
+
+- story: User intro path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_name
+  - action: utter_user_name
+  - action: utter_nice_to_meet_you
+  - intent: give_height
+  - action: action_receive_height
+  - action: action_say_height
+  - intent: give_weight
+  - action: action_receive_weight
+  - action: action_say_weight
+
+# Healthly wellbeing path
+# User wants to check nutritional value, BMI, or any other health-related info
+
+- story: Health-related inquiry path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: asking_should_i_eat
+  - action: utter_encourage_healthyeating
+  - action: action_check_food
+  - intent: check_food
+  - action: utter_encourage_healthyeating
+  - action: action_check_food
+
+- story: Health-related inquiry path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_weight
+  - action: action_say_weight
+  - intent: ask_height
+  - action: action_say_height
   - intent: inquire_bmi
   - action: action_calculate_bmi
   - action: action_say_bmi
 
+- story: Health-related inquiry path 3 (User is sad after knowing he / she has obese BMI)
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: inquire_bmi
+  - action: action_calculate_bmi
+  - action: action_say_bmi
+  - intent: mood_unmotivated
+  - action: utter_encourage_exercise
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
 
+- story: Health-related inquiry path 4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: inquire_bmi
+  - action: action_calculate_bmi
+  - action: action_say_bmi
+  - intent: mood_unmotivated
+  - action: utter_encourage_exercise
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
