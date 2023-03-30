@@ -11,11 +11,6 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Cheer up when unhappy
-  steps:
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-
 ## Custom rules here
 
 # user asking if he/she should eat this
@@ -65,6 +60,30 @@ rules:
   steps:
   - intent: asking_nutrition_cumulated
   - action: action_report_nutrition
+
+# Reports username to user
+- rule: Report name when user asks for it
+  steps:
+    - intent: ask_name
+    - action: action_say_name
+
+# Reports weight to user
+- rule: Report weight when user asks for it
+  steps:
+    - intent: ask_weight
+    - action: action_say_weight
+
+# Reports height to user
+- rule: Report height when user asks for it
+  steps:
+    - intent: ask_height
+    - action: action_say_height
+
+# Remind user to do sports
+- rule: Motivate and remind user to do sports
+  steps:
+    - intent: mood_unmotivated
+    - action: utter_encourage_exercise
 
 # Ask for rephrasing when bot detects user input with low NLU confidence
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
