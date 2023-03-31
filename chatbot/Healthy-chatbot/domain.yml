@@ -38,9 +38,8 @@ entities:
 - weight      # user's weight, not used now
 - height      # user's height, not used now
 - sport         #York's sport
-- duration      #York's sport
-- unit          #York's sport
 - activitylevel #York's sport
+- duration      #York's sport
 - nutrition_requested
 
 
