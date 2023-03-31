@@ -85,6 +85,12 @@ rules:
     - intent: mood_unmotivated
     - action: utter_encourage_exercise
 
+# Recommend and give instructions of exercise(s)
+- rule: Recommend and give instructions of exercise(s) when user asks for it
+  steps:
+    - intent: asking_recommend_exercise
+    - action: action_report_exercise
+
 # Ask for rephrasing when bot detects user input with low NLU confidence
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:

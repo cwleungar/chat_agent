@@ -499,6 +499,46 @@ class ActivityLevel(Action):
 
 #end of York's sport action
 #----------------------------------------------------------------------------
+
+# action_report_exercise
+# Recommend and give instructions of exercises to users
+class ActionReportExercise(Action):
+
+    def name(self) -> Text:
+        return "action_report_exercise"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        EXERCISE_RESULT_NUM = 3     # Controls the number of exercises bot returns to user
+        exercise_type = next(tracker.get_latest_entity_values("exercise_type"), None)
+        muscle_gp = next(tracker.get_latest_entity_values("muscle_gp"), None)
+        difficulty = next(tracker.get_latest_entity_values("difficulty"), None) # need to decide if difficulty needs lookup in action implementation
+        
+        API_URL = "https://api.api-ninjas.com/v1/exercises"
+        API_KEY = "2TCN1y1kWI0OAqHXhNXy0Q==D6P4Hf9cEuPlKbIo"
+
+        headers = {"X-Api-Key": API_KEY}
+        params = {"type": exercise_type, "muscle": muscle_gp, "difficulty": difficulty}
+        response = requests.get(API_URL, headers = headers, params = params)
+
+        if response.status_code != requests.codes.ok:
+            dispatcher.utter_message(text = f"Error code {response.status_code}: {response.text}")
+            return []
+
+        exercise_list = json.loads(json.dumps(response.json()))[: EXERCISE_RESULT_NUM]
+        output = "Here is a list of" + (f" {difficulty}" if difficulty else "") + (f" {exercise_type}" if exercise_type else "") + " exercise(s)" + (f" that can strength your {muscle_gp}" if muscle_gp else "") + ":\n\n"
+        for index, exercise in enumerate(exercise_list):
+            output += f"{index + 1}. {exercise['name']}\n" \
+                      f"• Type: {exercise['type']}\n" \
+                      f"• Muscle: {exercise['muscle']}\n" \
+                      f"• Difficulty: {exercise['difficulty']}\n" \
+                      f"• Instructions: {exercise['instructions']}\n\n"
+
+        dispatcher.utter_message(text = output)
+        return []
+
 # action_fallback
 # This action is performed when the bot's action confidence falls below a threshold (Configured in config.yml)
 class ActionDefaultFallback(Action):

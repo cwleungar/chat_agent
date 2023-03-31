@@ -1204,3 +1204,67 @@ nlu:
 
 #end of sport part
 #--------------------------------------------------------------------------------------
+
+# User asks to suggest exercise (by Blake)
+# Entitie(s): exercise_type, muscle_gp, difficulty
+# Note: The suggestions from the exercise API returns gym workout methods (e.g. dumbbell curls), 
+#       so they differ from the sports defined by York (e.g. football) and there is no overlap
+- intent: asking_recommend_exercise
+  examples: |
+    - What can I do to improve my overall fitness?
+    - Can you recommend me some exercises to do?
+    - What exercises should I do to improve my [biceps](muscle_gp)?
+    - What types of exercise do you recommend for [cardio](muscle_gp)?
+    - How should I train my [chest](muscle_gp) muscles?
+    - The best exercises for building [forearms](muscle_gp)?
+    - Suggest me some [cardio](exercise_type) type exercises
+    - Recommend me some [powerlifting](exercise_type) workout
+    - Give me some [beginner](difficulty) sport
+    - Instructions of a few [intermediate](difficulty) gym routines 
+    - [hard](difficulty) sport
+    - [easy](difficulty) gym workout
+    - [triceps](muscle_gp) workout
+    - [hamstrings](muscle_gp) workout
+    - [stretching](exercise_type) exercises
+    - [weightlifting](exercise_type) exercises
+- lookup: exercise_type
+  examples: |
+    - cardio
+    - weightlifting
+    - plyometrics
+    - powerlifting
+    - strength
+    - stretching
+    - strongman
+- lookup: muscle_gp
+  examples: |
+    - abdominals
+    - abductors
+    - adductors
+    - biceps
+    - calves
+    - chest
+    - forearms
+    - glutes
+    - hamstrings
+    - lats
+    - lower back
+    - middle back
+    - neck
+    - quadriceps
+    - traps
+    - triceps
+- lookup: difficulty
+  examples: |
+    - easy
+    - beginner
+    - intermediate
+    - hard
+    - expert
+- synonym: exercise
+  examples: |
+    - sport
+    - workout
+    - training
+    - physical activity
+    - fitness activity
