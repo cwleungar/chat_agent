@@ -18,6 +18,7 @@ pipeline:
     model_name: "gpt2"
     model_weights: "gpt2"
   - name: DIETClassifier
+    constrain_similarities: True
 ##  - name: SklearnIntentClassifier
 ##    C: [1, 2, 5, 10, 20, 100]
 ##    kernels: ["linear"]

@@ -6,7 +6,7 @@ from rasa_sdk.events import SlotSet
 from rasa_sdk.events import UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 import re
-
+import random
 #### custom action Start here:
 
 # action_receive_weight
@@ -267,10 +267,7 @@ class ActionCheckFood(Action):
 
         listHolder = nutritionValue['foods']
         realDict = listHolder[0]
-        realDict= {
-            'nf_calories':  0 if realDict['nf_calories']==None else realDict['nf_calories']
-
-        }
+        print(realDict)
         for i in ["nf_calories","nf_total_fat","nf_saturated_fat","nf_cholesterol","nf_sodium","nf_total_carbohydrate","nf_dietary_fiber","nf_sugars","nf_protein","nf_potassium"]:
             if not (i in realDict) or realDict[i]==None:
                 realDict[i]="unknown"
@@ -303,6 +300,10 @@ class ActionCheckFood(Action):
                 realDict[i]=0
 
         dispatcher.utter_message(text = msg)
+        if int(realDict["nf_calories"])>650 or int(realDict["nf_saturated_fat"])>10 or int(realDict["nf_sodium"])>450:
+            dispatcher.utter_message(text = "Your meal seems too heavy, maybe you can try these")
+            ActionSuggestMeal().run(dispatcher,tracker,domain)
+
         return [
             SlotSet("calories_cumulated", calories + float(realDict.get("nf_calories"))),
             SlotSet("sugar_cumulated", sugar + float(realDict.get("nf_sugars"))),
@@ -538,6 +539,99 @@ class ActionReportExercise(Action):
 
         dispatcher.utter_message(text = output)
         return []
+
+
+# action_suggest_healthy_meal
+# Recommend and give healthy meal
+class ActionSuggestMeal(Action):
+
+    def name(self) -> Text:
+        return "action_suggest_healthy_meal"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        appetizers = [
+                ("Avocado and tomato salad with a lime vinaigrette", 200), 
+                ("Roasted beet and goat cheese salad with a honey mustard dressing", 180), 
+                ("Grilled eggplant and zucchini with a balsamic glaze", 120), 
+                ("Steamed edamame with sea salt", 100), 
+                ("Tomato and basil bruschetta with whole wheat bread", 150), 
+                ("Spicy tuna poke bowl with avocado and sesame seeds", 300), 
+                ("Greek yogurt and cucumber dip with whole wheat pita bread", 120), 
+                ("Caprese skewers with cherry tomatoes, mozzarella, and basil", 150), 
+                ("Carrot and ginger soup with whole grain crackers", 150), 
+                ("Kale and quinoa salad with lemon vinaigrette", 250), 
+                ("Sweet potato and black bean quesadilla with salsa", 400), 
+                ("Grilled shrimp skewers with a garlic and herb marinade", 150), 
+                ("Roasted red pepper and feta dip with whole wheat pita chips", 180), 
+                ("Stuffed mushrooms with spinach and feta cheese", 150), 
+                ("Grilled artichoke with lemon and garlic aioli", 100), 
+                ("Watermelon and feta salad with mint and balsamic glaze", 120), 
+                ("Cucumber and avocado gazpacho with whole grain croutons", 150), 
+                ("Roasted cauliflower with tahini sauce and parsley", 100), 
+                ("Grilled corn on the cob with chili lime butter", 100), 
+                ("Broiled grapefruit with honey and cinnamon", 80)
+            ]
+
+        main_courses = [
+                ("Grilled chicken breast with roasted sweet potato and green beans", 400), 
+                ("Baked salmon with roasted brussels sprouts and brown rice", 450), 
+                ("Black bean and vegetable stir-fry with quinoa", 350), 
+                ("Grilled pork tenderloin with roasted root vegetables", 400), 
+                ("Shrimp and vegetable skewers with quinoa pilaf", 400), 
+                ("Baked cod with roasted broccoli and wild rice", 350), 
+                ("Lentil soup with a side salad and whole grain bread", 300), 
+                ("Grilled steak with asparagus and roasted potatoes", 500), 
+                ("Vegetable and bean chili with whole grain crackers", 350), 
+                ("Baked tofu with roasted mixed vegetables and quinoa", 400), 
+                ("Chicken and vegetable curry with brown rice", 450), 
+                ("Grilled portobello mushroom burger with sweet potato fries", 400), 
+                ("Broiled salmon with roasted carrots and couscous", 450), 
+                ("Turkey meatballs with spaghetti squash and marinara sauce", 350), 
+                ("Baked sweet potato with black beans and avocado", 350), 
+                ("Grilled vegetable and tofu kebabs with quinoa salad", 350), 
+                ("Chicken fajitas with whole wheat tortillas and salsa", 400), 
+                ("Broiled flank steak with roasted bell peppers and quinoa", 450), 
+                ("Veggie and hummus wrap with a side of roasted sweet potato wedges", 350), 
+                ("Baked chicken breast with steamed asparagus and quinoa pilaf", 400)
+            ]
+        fruits = [
+            ("Apple", 95), 
+            ("Banana", 105), 
+            ("Blueberries", 85), 
+            ("Cantaloupe", 55), 
+            ("Grapefruit", 75), 
+            ("Grapes", 60), 
+            ("Kiwi", 50), 
+            ("Mango", 135), 
+            ("Orange", 60), 
+            ("Peach", 60), 
+            ("Pear", 100), 
+            ("Pineapple", 80), 
+            ("Plum", 70), 
+            ("Raspberries", 65), 
+            ("Strawberries", 50), 
+            ("Tangerine", 40), 
+            ("Watermelon", 50), 
+            ("Papaya", 120), 
+            ("Blackberries", 60), 
+            ("Cherries", 70)
+        ]
+        selected=[random.choice(appetizers),random.choice(main_courses),random.choice(fruits)]
+        sum=0
+        for i in selected:
+            sum+=i[1]
+        output = f"We recommend the following meal for you, they are healthy and yummy\n" \
+                      f"• Appetizers: {selected[0][0]}\n" \
+                      f"• Main Courses: {selected[1][0]}\n" \
+                      f"• Fruit: {selected[2][0]}\n" \
+                      f"• Approximate Total calorie counts: {sum}\n\n"
+
+        dispatcher.utter_message(text = output)
+        return []
+
 
 # action_fallback
 # This action is performed when the bot's action confidence falls below a threshold (Configured in config.yml)
