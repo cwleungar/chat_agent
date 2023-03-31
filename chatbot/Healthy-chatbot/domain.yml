@@ -15,6 +15,8 @@ intents:
 - bot_challenge
 - check_food
 - asking_should_i_eat
+- asking_nutrition_cumulated
+- asking_recommend_exercise
 - tell_info
 - ask_name
 - ask_weight
@@ -27,10 +29,8 @@ intents:
 - i_play_sport              #York's sport
 - ask_for_activitylevel     #York's sport
 
-
 # simple entity definitions 
 entities:
-- place
 - name        # user's name
 - age         # user's age
 - food
@@ -41,6 +41,9 @@ entities:
 - activitylevel #York's sport
 - duration      #York's sport
 - nutrition_requested
+- exercise_type
+- muscle_gp
+- difficulty
 
 
 responses:
@@ -135,6 +138,7 @@ actions:
 - action_analyis_sport    # from York
 - action_activitylevel    # from York
 - action_report_nutrition
+- action_report_exercise  # from Blake
 - action_fallback
 
 ## forms definitions
