@@ -1,7 +1,6 @@
 from typing import Any, Text, Dict, List
 
 import arrow
-import dateparser
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import UserUtteranceReverted
