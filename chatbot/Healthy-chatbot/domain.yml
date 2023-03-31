@@ -17,6 +17,7 @@ intents:
 - asking_should_i_eat
 - asking_nutrition_cumulated
 - asking_recommend_exercise
+- asking_recommend_meal
 - tell_info
 - ask_name
 - ask_weight
@@ -28,6 +29,7 @@ intents:
 - inquire_bmi
 - i_play_sport              #York's sport
 - ask_for_activitylevel     #York's sport
+- asking_should_i_exercise
 
 # simple entity definitions 
 entities:
@@ -140,6 +142,7 @@ actions:
 - action_report_nutrition
 - action_report_exercise  # from Blake
 - action_fallback
+- action_suggest_healthy_meal
 
 ## forms definitions
 # form is just like a loop keep listening user until we get the required slot

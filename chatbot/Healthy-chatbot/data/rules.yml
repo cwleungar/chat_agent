@@ -84,12 +84,23 @@ rules:
   steps:
     - intent: mood_unmotivated
     - action: utter_encourage_exercise
+#Directly tell them do sport
+- rule: Tell user to do sports
+  steps:
+    - intent: asking_should_i_exercise
+    - action: utter_encourage_exercise
 
 # Recommend and give instructions of exercise(s)
 - rule: Recommend and give instructions of exercise(s) when user asks for it
   steps:
     - intent: asking_recommend_exercise
     - action: action_report_exercise
+
+# Recommend and give instructions of meal(s)
+- rule: Recommend and give instructions of healthy meals
+  steps:
+    - intent: asking_recommend_meal
+    - action: action_suggest_healthy_meal
 
 # Ask for rephrasing when bot detects user input with low NLU confidence
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence

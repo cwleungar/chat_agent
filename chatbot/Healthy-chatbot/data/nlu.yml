@@ -191,6 +191,7 @@ nlu:
     - should i workout?
     - do you think i need to do sports?
     - how to be healthy
+    - should I sport
 
 # User want to tell his/her name
 - intent: tell_info
@@ -1188,6 +1189,7 @@ nlu:
     - I have been playing [football](sport) for [10](duration) [mins](unit)
     - I [badminton](sport) for [240](duration) [mins](unit)
     - [cycling](sport) [80](duration) [hrs](unit)
+    - I [swim](sport)
 
 #intent that call action_activitylevel
 - intent: ask_for_activitylevel
@@ -1268,3 +1270,28 @@ nlu:
     - training
     - physical activity
     - fitness activity
+
+### food recommendation
+- intent: asking_recommend_meal
+  examples: |
+    - What should I eat
+    - What would you recommend for a healthy meal?
+    - Can you suggest a nutritious meal option?
+    - I'm trying to eat healthier, what would you suggest for a meal?
+    - What are some good options for a low-calorie meal?
+    - Any recommendations for a balanced meal?
+    - What's a healthy meal I can order?
+    - I want to eat something healthy, what do you suggest?
+    - Can you suggest a meal that's good for weight loss?
+    - What are some healthy dishes on the menu?
+    - Any suggestions for a meal that's both healthy and delicious?
+    - I'm starving, what should I eat?
+    - I can't decide what to eat, any suggestions?
+    - What's good to eat around here?
+    - I'm in the mood for something tasty, what should I eat?
+    - What do you recommend for a filling meal?
+    - What should I have for lunch/dinner/breakfast?
+    - What's a good meal option for someone on a diet?
+    - I'm looking for something healthy to eat, what should I have?
+    - What's your favorite meal option at this restaurant?
+    - Any ideas on what I should eat tonight?
