@@ -1,7 +1,6 @@
 from typing import Any, Text, Dict, List
 
 import arrow
-import dateparser
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import UserUtteranceReverted
@@ -236,7 +235,6 @@ class ActionCheckFood(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         target_food = next(tracker.get_latest_entity_values("food"), None)
 
         if not target_food:
@@ -254,7 +252,6 @@ class ActionCheckFood(Action):
                     }
         
         body = {"query": f"100g of {target_food}"}
-
         data = requests.post(url, headers = headers, json = body)
 
         status = data.status_code
@@ -270,17 +267,23 @@ class ActionCheckFood(Action):
 
         listHolder = nutritionValue['foods']
         realDict = listHolder[0]
+        realDict= {
+            'nf_calories':  0 if realDict['nf_calories']==None else realDict['nf_calories']
 
-        msg += "\nCalories: " + str(realDict.get("nf_calories")) + "kcal"
-        msg += "\nTotal fat: " + str(realDict.get("nf_total_fat")) + "g"
-        msg += "\nSaturated fat: " + str(realDict.get("nf_saturated_fat")) + "g"
-        msg += "\nCholesterol: " + str(realDict.get("nf_cholesterol")) + "mg"
-        msg += "\nSodium: " + str(realDict.get("nf_sodium")) + "mg"
-        msg += "\nCarbohydrates: " + str(realDict.get("nf_total_carbohydrate")) + "g"
-        msg += "\nDietary fiber: " + str(realDict.get("nf_dietary_fiber")) + "g"
-        msg += "\nSugars: " + str(realDict.get("nf_sugars")) + "g"
-        msg += "\nProtein: " + str(realDict.get("nf_protein")) + "g"
-        msg += "\nPotassium: " + str(realDict.get("nf_potassium")) + "mg"
+        }
+        for i in ["nf_calories","nf_total_fat","nf_saturated_fat","nf_cholesterol","nf_sodium","nf_total_carbohydrate","nf_dietary_fiber","nf_sugars","nf_protein","nf_potassium"]:
+            if not (i in realDict) or realDict[i]==None:
+                realDict[i]="unknown"
+        msg += "\nCalories: " + str(realDict.get("nf_calories")) + " kcal"
+        msg += "\nTotal fat: " + str(realDict.get("nf_total_fat")) + " g"
+        msg += "\nSaturated fat: " + str(realDict.get("nf_saturated_fat")) + " g"
+        msg += "\nCholesterol: " + str(realDict.get("nf_cholesterol")) + " mg"
+        msg += "\nSodium: " + str(realDict.get("nf_sodium")) + " mg"
+        msg += "\nCarbohydrates: " + str(realDict.get("nf_total_carbohydrate")) + " g"
+        msg += "\nDietary fiber: " + str(realDict.get("nf_dietary_fiber")) + " g"
+        msg += "\nSugars: " + str(realDict.get("nf_sugars")) + " g"
+        msg += "\nProtein: " + str(realDict.get("nf_protein")) + " g"
+        msg += "\nPotassium: " + str(realDict.get("nf_potassium")) + " mg"
 
         # update cumulated calories, sugar, fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, protein, potassium
         # get the value in slot "calories"
@@ -295,7 +298,9 @@ class ActionCheckFood(Action):
         protein = tracker.get_slot("protein_cumulated")
         potassium = tracker.get_slot("potassium_cumuulated")
 
-       
+        for i in ["nf_calories","nf_total_fat","nf_saturated_fat","nf_cholesterol","nf_sodium","nf_total_carbohydrate","nf_dietary_fiber","nf_sugars","nf_protein","nf_potassium"]:
+            if realDict[i]=="unknown":
+                realDict[i]=0
 
         dispatcher.utter_message(text = msg)
         return [
