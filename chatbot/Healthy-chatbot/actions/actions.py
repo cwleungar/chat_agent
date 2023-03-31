@@ -27,7 +27,7 @@ class ActionReceiveWeight(Action):
         weight = None        
         # if no matching
         if not res:
-            return [SlotSet("weight", None), SlotSet("duration", None)]            # set the slot be None
+            return [SlotSet("weight", None)]            # set the slot be None
         else:
             # get if it is kg or lb
             unit = res.group(2)
@@ -44,7 +44,7 @@ class ActionReceiveWeight(Action):
                     pass
             
         # return a list of event
-        return [SlotSet("weight", weight), SlotSet("duration", None)]
+        return [SlotSet("weight", weight)]
   
 # action_receive_height
 class ActionReceiveHeight(Action):
@@ -61,7 +61,7 @@ class ActionReceiveHeight(Action):
         res = re.search("([12]\.?\d*)\s?(m|cm)?", text_received, re.IGNORECASE)       # assume no one can reach 3m tall
         height = None
         if not res: # if no matching
-            return [SlotSet("height", None), SlotSet("duration", None)]            # set the slot be None
+            return [SlotSet("height", None)]            # set the slot be None
         else:
             # get if it is m or cm
             unit = res.group(2)
@@ -80,7 +80,7 @@ class ActionReceiveHeight(Action):
                     pass
 
         # return a list of event
-        return [SlotSet("height", height), SlotSet("duration", None)]
+        return [SlotSet("height", height)]
 
 
 # calculate BMI based on weight and height slots
@@ -401,20 +401,26 @@ class AnalyisSport(Action):
         sport = next(tracker.get_latest_entity_values("sport"), None)
         if not sport:
             sport = tracker.get_slot("sport")
-        duration = next(tracker.get_latest_entity_values("duration"), None)
-        unit = next(tracker.get_latest_entity_values("unit"), None)
 
-        #update durationInMin only when user provide both unit and duration
-        #Get the duration slot if not
-        #only unit do nothing
-        if (unit and duration):
+        text_received = tracker.latest_message['text']
+        res = re.search("(\d+\.\d+|\d+)\s*(m\s|min\s|mins\s|h\s|hr\s|hrs\s|hour\s|hours\s|m$|min$|mins$|h$|hr$|hrs$|hour$|hours$)", text_received, re.IGNORECASE)
+
+        #extract duration from user input if provided both duration and unit
+        if (res):
+            duration = res.group(1)
+            unit = res.group(2)
             try:
                 durationInMin = float(duration)
                 if unit.lower() not in MIN: #unit hour
                     durationInMin *= 60
             except:
-                durationInMin = None
+                duration = None
+                durationInMin = None    
+        else:
+            duration = None
+            unit = None
 
+        #Use the duration in slot if not provided
         if not duration:
             duration = tracker.get_slot("duration")
             try:
