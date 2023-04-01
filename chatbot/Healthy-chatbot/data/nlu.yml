@@ -1259,6 +1259,7 @@ nlu:
 #       so they differ from the sports defined by York (e.g. football) and there is no overlap
 - intent: asking_recommend_exercise
   examples: |
+    - what sports should i do?
     - What can I do to improve my overall fitness?
     - Can you recommend me some exercises to do?
     - What exercises should I do to improve my [biceps](muscle_gp)?
