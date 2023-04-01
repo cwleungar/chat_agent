@@ -140,8 +140,8 @@ nlu:
 
 - intent: check_food
   examples: |
-    - i had a [cheeseburger](food)
-    - i have eaten a [cheeseburger](food)
+    - i had a [cheese burger](food)
+    - i have eaten a [cheese burger](food)
     - i ate a [cheeseburger](food)
     - i just ate some [cheeseburger](food)
     - what is the nutrition value of a [chicken sandwich](food)?
@@ -149,6 +149,52 @@ nlu:
     - i ate some [hawaiian pizza](food)
     - nutrtion value of [dumplings](food)
     - what is the nutritional value of [apple](food)?
+    - I tried [abalone](food) for the first time and it was delicious.
+    - I had an [almond biscuit](food) with my coffee this morning.
+    - I drank [almond milk](food) with my cereal for breakfast.
+    - I had a classic [American breakfast](food) of eggs, bacon, and toast this morning.
+    - I enjoyed a slice of warm [apple pie](food) for dessert.
+    - I had a juicy [apricot](food) for a midday snack.
+    - I tried [arrowhead](food) in a stir-fry and it had a unique texture.
+    - I had roasted [asparagus](food) as a side dish for dinner.
+    - I had [avocado](food) toast for breakfast this morning.
+    - I had some delicious [baby back ribs](food) at the barbecue last night.
+    - I had [bacon](food) with my eggs this morning.
+    - I had a toasted [bagel](food) with cream cheese for breakfast.
+    - I had [baked beans](food) with my grilled chicken for lunch.
+    - I had a loaded [baked potato](food) for dinner.
+    - I tried [Bak Kut Teh](food) soup for the first time and it was flavorful.
+    - I had a [banana](food) with my peanut butter toast for breakfast.
+    - I had some tasty [barbecue pork](food) for lunch today.
+    - I tried [barramundi](food) for the first time and it was delicious.
+    - I had [basil chicken](food) stir-fry for dinner.
+    - I had slow-cooked [beef brisket](food) for dinner and it was tender.
+    - I had a juicy [beef burger](food) with all the toppings for lunch.
+    - I ordered [beef chow fun](food) from my favorite Chinese restaurant for dinner.
+    - I made a spicy [beef curry](food) for dinner.
+    - I had a comforting bowl of [beef noodle soup](food) for lunch.
+    - I tried [beef rendang](food) for the first time and it was full of flavor.
+    - I had some tasty [beef satay](food) skewers as an appetizer.
+    - I had hearty [beef stew](food) for dinner on a cold night.
+    - I enjoyed a cold [beer](food) with my pizza for dinner.
+    - I had crispy [Beijing duck](food) with pancakes and hoisin sauce for dinner.
+    - I tried [bitter melon](food) stir-fry and it was an acquired taste.
+    - I had stir-fried [beef](food) with [black bean sauce](food) for dinner.
+    - I ordered [black pepper beef](food) from my favorite Chinese restaurant for dinner.
+    - I had sweet [black sesame soup](food) for dessert.
+    - I had stir-fried [bok choy](food) as a side dish for dinner.
+    - I had tender [braised beef](food) with mashed potatoes for dinner.
+    - I had [braised duck](food) with rice for lunch.
+    - I had flavorful [braised pork belly](food) with steamed buns.
+    - I enjoyed warm [bread pudding](food) with vanilla ice cream for dessert.
+    - I had a [breakfast sandwich](food) with [bacon](food) and [egg](food) this morning.
+    - I had steamed [broccoli](food) as a side dish for dinner.
+    - I enjoyed a rich chocolate [brownie](food) for dessert.
+    - I had a refreshing [bubble tea](food) with tapioca pearls as a midday snack.
+    - I had spicy [buffalo wings](food) with blue cheese dip as an appetizer.
+    - I had a juicy [burger](food) with fries for lunch.
+    - I had a [beef](food) and [bean](food) [burrito](food) with all the toppings for dinner.
+    - I had creamy [butter chicken](food) with naan bread for dinner.
 
 # User asking whether he should eat this food
 - intent: asking_should_i_eat
