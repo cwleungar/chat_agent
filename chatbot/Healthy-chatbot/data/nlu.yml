@@ -1237,9 +1237,9 @@ nlu:
     - [cycling](sport) 80 hrs
     - I [swim](sport)
     - I [golf](sport) yesterday
-    - 30 mins
-    - 45 mins
-    - 0.5 hour
+    - My play time is 30 mins
+    - I play it for 45 mins
+    - 0.5 hour long
     - I played for 2 hours
 
 #intent that call action_activitylevel
