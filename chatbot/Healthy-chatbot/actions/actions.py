@@ -444,9 +444,9 @@ class AnalyisSport(Action):
         
         if (intensity and durationInMin):
             activitylevel += durationInMin*intensity
-            msg = f"Your activity level this week is {activitylevel} out of {heathylevel}"
+            msg = f"Your activity level this week is {int(activitylevel)} out of {heathylevel}"
             dispatcher.utter_message(text=msg)
-            if activitylevel > heathylevel:
+            if activitylevel >= heathylevel:
                 msg = f"You have done enough exercise this week"
             else:
                 msg = f"You should exercise more this week"
@@ -489,9 +489,9 @@ class ActivityLevel(Action):
             activitylevel = float(tracker.get_slot("activitylevel"))
         except:
             activitylevel = 0.0
-        msg = f"Your activity level this week is {activitylevel} out of {heathylevel}"
+        msg = f"Your activity level this week is {int(activitylevel)} out of {heathylevel}"
         dispatcher.utter_message(text=msg)
-        if activitylevel > heathylevel:
+        if activitylevel >= heathylevel:
             msg = f"You have done enough exercise this week"
         else:
             msg = f"You need to do more exercise this week"
