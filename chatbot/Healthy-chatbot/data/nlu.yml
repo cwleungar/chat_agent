@@ -1228,14 +1228,19 @@ nlu:
 - intent: i_play_sport
   examples: |
     - I play [Tennis](sport)
-    - I play [football](sport) for [10](duration) [hrs](unit)
-    - I [swimming](sport) for [24](duration)[hr](unit)
-    - [Golf](sport) for [2](duration)[hours](unit)
-    - I play [0.5](duration) [hr](unit) of [Badminton](sport)
-    - I have been playing [football](sport) for [10](duration) [mins](unit)
-    - I [badminton](sport) for [240](duration) [mins](unit)
-    - [cycling](sport) [80](duration) [hrs](unit)
+    - I play [football](sport) for 10 hrs
+    - I [swimming](sport) for 24hr
+    - [Golf](sport) for 2hours
+    - I play 0.5 hr of [Badminton](sport)
+    - I have been playing [football](sport) for 10 mins
+    - I [badminton](sport) for 240 mins
+    - [cycling](sport) 80 hrs
     - I [swim](sport)
+    - I [golf](sport) yesterday
+    - 30 mins
+    - 45 mins
+    - 0.5 hour
+    - I played for 2 hours
 
 #intent that call action_activitylevel
 - intent: ask_for_activitylevel
