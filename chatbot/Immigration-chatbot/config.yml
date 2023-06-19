@@ -1,85 +1,34 @@
 recipe: default.v1
 assistant_id: 20230327-174028-emerald-drip
-language: en
+language: zh
 
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
 pipeline:
-
-  #- name: JiebaTokenizer
-  - name: WhitespaceTokenizer
-    ##- name: LexicalSyntacticFeaturizer
-  ##- name: CountVectorsFeaturizer
-  ##- name: CountVectorsFeaturizer
-  ##  analyzer: char_wb
-  ##  min_ngram: 1
-  ##  max_ngram: 4
-  - name: LanguageModelFeaturizer
-    model_name: "gpt2"
-    model_weights: "gpt2"
-  #- name: LanguageModelFeaturizer
-  #  model_name: "bert"
-  #  model_weights: "bert-base-chinese"
+#  - name: JiebaTokenizer
+#  - name: LanguageModelFeaturizer
+#    model_name: "bert"
+#    model_weights: "bert-base-chinese"
+#  - name: DIETClassifier
+#    epochs: 100
+  - name: SpacyNLP
+    model: xx_ent_wiki_sm
+  - name: SpacyTokenizer
+  - name: SpacyFeaturizer
   - name: RegexFeaturizer
-
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
   - name: DIETClassifier
-    learning_rate: 0.001
     epochs: 100
     constrain_similarities: True
-
-  - name: RegexFeaturizer
-
-##  - name: SklearnIntentClassifier
-##    C: [1, 2, 5, 10, 20, 100]
-##    kernels: ["linear"]
-##    "gamma": [0.1]
-##    "max_cross_validation_folds": 5
-##    "scoring_function": "f1_weighted"
-##  - name: "CRFEntityExtractor"
-##    # BILOU_flag determines whether to use BILOU tagging or not.
-##    "BILOU_flag": True
-##    # features to extract in the sliding window
-##    "features": [
-##      ["low", "title", "upper"],
-##      [
-##        "bias",
-##        "low",
-##        "prefix5",
-##        "prefix2",
-##        "suffix5",
-##        "suffix3",
-##        "suffix2",
-##        "upper",
-##        "title",
-##        "digit",
-##        "pattern",
-##        "text_dense_features"
-##      ],
-##      ["low", "title", "upper"],
-##    ]
-##    # The maximum number of iterations for optimization algorithms.
-##    "max_iterations": 50
-##    # weight of the L1 regularization
-##    "L1_c": 0.1
-##    # weight of the L2 regularization
-##    "L2_c": 0.1
-##    # Name of dense featurizers to use.
-##    # If list is empty all available dense features are used.
-##    "featurizers": []
-##    # Indicated whether a list of extracted entities should be split into individual entities for a given entity type
-##    "split_entities_by_comma":
-##        address: False
-##        email: True  
-##  - name: RegexEntityExtractor
-##    case_sensitive: False
-##    use_lookup_tables: True
-##  - name: ResponseSelector
-##    epochs: 100
-##    constrain_similarities: true
-##  - name: FallbackClassifier
-##    threshold: 0.3
-##    ambiguity_threshold: 0.1
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
 
 
 # # No configuration for policies was provided. The following default policies were used to train your model.
